@@ -1,0 +1,29 @@
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+	((even? exp)
+	 (remainder (square (expmod base (/ exp 2) m))
+		    m))
+	(else
+	 (remainder (* base (expmod base (- exp 1) m))
+		    m))))
+;Value: expmod
+
+; Note: this technique is useful because it means we can perform our computation
+; without ever having to deal with numbers much larger than m.
+
+
+(define (expmod base exp m)
+  (remainder (fast-expt base exp) m))
+;Value: expmod
+
+
+(define (fast-expt b n)
+  (cond ((= n 0) 1)
+	((even? n) (square (fast-expt b (/ n 2))))
+	(else (* b (fast-expt b (- n 1))))))
+;Value: fast-expt
+
+
+
+
+
