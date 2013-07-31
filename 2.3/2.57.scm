@@ -1,0 +1,42 @@
+
+(load "differentiation.scm")
+;Loading "differentiation.scm"... done
+;Value 2: (+ (* x y) (* y (+ x 3)))
+
+(deriv '(* (* x y) (+ x 3)) 'x)
+;Value 4: (+ (* x y) (* y (+ x 3)))
+
+(deriv '(+ x 3) 'x)
+;Value: 1
+
+(define (augend s)
+  (if (pair? (cdddr s))
+      (cons '+ (cddr s))
+      (caddr s)))
+;Value: augend
+
+
+(deriv '(+ x 3) 'x)
+;Value: 1
+
+(deriv '(+ x 3 4) 'x)
+;Value: 1
+
+(deriv '(+ x x 55) 'x)
+;Value: 2
+
+(deriv '(+ (* 3 x) (* 5 x)) 'x)
+;Value: 8
+
+(define (multiplicand s)
+  (if (pair? (cdddr s))
+      (cons '* (cddr s))
+      (caddr s)))
+;Value: multiplicand
+
+(deriv '(* x y) 'x)
+;Value: y
+
+(deriv '(* x y (+ x 3)) 'x)
+;Value 16: (+ (* x y) (* y (+ x 3)))
+
