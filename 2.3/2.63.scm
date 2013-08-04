@@ -100,3 +100,11 @@ mytree
 ; Actually, the first procedure completes the task in exponential number of steps, because
 ; it calls itself twice on each step of computation. The second procedure requires the 
 ; linear number of steps.
+; Fix: We assume that cons is a constant-time operation. The second procedure calls cons at each step.
+; So, the tree->list-2 procedure has a time complexity of O(n).
+; The first procedure calls append at each step. The order of growth of append is proportional to
+; the first list that's passed in. In the case of tree->list-1, the first list argument is the left branch
+; of the tree, which is a bout half of a node's elements for a balanced tree. This means that for each
+; recursive call, approximately half of the number of nodes will be in the first list argument as in the
+; previous call. Since the number of elements is cut in half on each of the n calls to append,
+; the tree->list-1 procedure has a complexity of O(n log n) for a balanced tree.
