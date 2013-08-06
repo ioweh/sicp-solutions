@@ -19,3 +19,10 @@ implemented as balanced binary trees.
 Of course, we don't forget to turn ordered lists back to balanced binary trees using the procedure from exercise 2.64,
 which also has O(n) growth.
 
+(define (union-set-tree set1 set2)
+  (list->tree (union-set (tree->list set1)
+			 (tree->list set2))))
+
+(define (intersection-set-tree set1 set2)
+  (list->tree (intersection-set (tree->list set1)
+				(tree->list set2))))
