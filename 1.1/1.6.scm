@@ -1,0 +1,1 @@
+The line (sqrt-iter (improve guess x) x) will be executed eternally, as new-if is not a special form and will try to evaluate all the arguments.
