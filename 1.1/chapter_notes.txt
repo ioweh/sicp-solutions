@@ -3,3 +3,7 @@
 See this link if you didn't understand how to compute square roots:
 
 https://en.wikipedia.org/wiki/Newton%27s_method#Square_root_of_a_number
+
+To load any file into the interpreter, run the following command:
+
+(load "differentiation.scm")
