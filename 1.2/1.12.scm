@@ -1,16 +1,22 @@
+(define (element-value xpos ypos)
+  (cond ((= xpos 0) 1)
+	((= xpos ypos) 1)
+	(else (+ (element-value (- xpos 1) (- ypos 1))
+		 (element-value xpos (- ypos 1))))))
+;Value: element-value
 
-(define (element depth position)
-  (cond ((= depth 1) 1)
-	((or (= position 1) (= position depth)) 1)
-	(else (+ (element (- depth 1) (- position 1)) (element (- depth 1) position)))))
-;Value: element
-
-(element 3 2)
-;Value: 2
-
-(element 5 4)
+(element-value 1 4)
 ;Value: 4
 
-(element 5 3)
+(element-value 2 4)
 ;Value: 6
+
+(element-value 3 4)
+;Value: 4
+
+(element-value 1 2)
+;Value: 2
+
+(element-value 1 3)
+;Value: 3
 
