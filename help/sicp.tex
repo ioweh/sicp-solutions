@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{mathtools}
+\usepackage{pb-diagram}
 
 \begin{document}
 
@@ -10,92 +11,10 @@
 \maketitle
 
 \begin{abstract}
-	Here's a detailed explanation to some interesting exercises in the wizard book.
+	A detailed explanation to some interesting exercises in the wizard book.
 \end{abstract}
 
-\section{Exercise 1.13}
-	
-	We will follow this formula, as defined in the exercise:
-
-	\begin{equation}
-		\label{fibonacci_approximation}
-		Fib(n) = {\frac {\left(\phi^n-\psi^n \right)} {\sqrt5}}
-	\end {equation}
-
-	Let's first prove the base case:
-
-	\begin{equation}
-		Fib(0) = {\frac {\left(\phi^0-\psi^0 \right)} {\sqrt5}} = 0
-	\end{equation}
-
-	\begin{equation}
-		Fib(1) = {\frac {\left(\phi^1-\psi^1 \right)} {\sqrt5}} = \frac {1 + \sqrt5 - 1 + \sqrt5} {2\sqrt5} = \frac {2\sqrt5} {2\sqrt5} = 1
-	\end{equation}
-
-The basis has been proven. We can safely assume that, in the case of fibonacci numbers, the statement that $Fib(n) = \left(\phi^n-\psi^n\right)/\sqrt5$ holds true for both $Fib(n-1)$ and $Fib(n)$. Now we need to prove the same statement for the $Fib(n+1)$ number.
-
-\begin{multline}
-	Fib(n+1) = Fib(n) + Fib(n-1) = \frac {\left(\phi^n-\psi^n\right)} {\sqrt5} + \frac {\left(\phi^{n-1}-\psi^{n-1}\right)} {\sqrt5} = \\
-	\frac {\left(\phi^n+\phi^{n-1}\right)} {\sqrt5} - \frac {\psi^n+\psi^{n-1}} {\sqrt5} = \frac {\phi^{n-1}\left(\phi+1\right)} {\sqrt5} - \frac {\psi^{n-1}\left(\psi+1\right)} {\sqrt5}
-\end{multline}
-
-We can see from here that the value $\phi+1=\phi^2$ and $\psi+1=\psi^2$ would perfectly suit our needs. Let's waste our time no longer and prove that it is really so.
-
-\begin{equation}
-	\phi+1 = \frac {1 + \sqrt5} {2} + 1 = \frac {3 + \sqrt5} {2}
-\end{equation}
-
-At the same time
-
-\begin{equation}
-	\phi^2 = \left(\frac {1 + \sqrt5} {2}\right)^2 = \frac {1 + 2\sqrt5 + 5} {4} = \frac {6 + 2\sqrt5} {4} = \frac {3 + \sqrt5} {2}
-\end{equation}
-
-As we see the results are the same. It means that $\phi+1 = \phi^2$
-
-We can notice the same about $\psi$
-
-\begin{equation}
-	\psi+1 = \frac{1 - \sqrt5} {2} + 1 = \frac {3 - \sqrt5} {2}
-\end{equation}
-
-Performing the same calculations as for the first case, we receive:
-
-\begin{equation}
-	\psi+1 = \left(\frac {1 - \sqrt5} {2}\right)^2 = \frac {1 - 2\sqrt5 + 5} {4} = \frac {6 - 2\sqrt5} {4} = \frac {3 - \sqrt5} {2}
-\end{equation}
-
-This also means that $\psi+1 = \psi^2$
-
-Having said that, we see that our equation for calculating fibonacci numbers takes the following look:
-
-\begin{equation}
-	Fib(n+1) = \frac {\phi^{n-1}\phi^2} {\sqrt5} - \frac{\psi^{n-1}\psi^2} {\sqrt5} = \frac {\phi^{n+1} - \psi^{n+1}} {\sqrt5}
-\end{equation}
-
-Just what we needed to prove.
-
-Now let's go on with proving the main point of our exercise: showing that $Fib(n)$ is the closest integer to $\phi^n / \sqrt5$ Those of you, whose vigorous minds weren't put to sleep by math, have already spotted that Fib(n) is an integer. We can rewrite it like that:
-
-\begin{equation}
-	Fib(n) = \frac {\phi^n - \psi^n} {\sqrt5} = \frac {\phi^n} {\sqrt5} - \frac{\psi^n} {\sqrt5}
-\end{equation}
-
-In this case we need to prove that $\frac{\psi^n} {\sqrt5} < \frac {1} {2}$. Let's rewrite our condition in the following manner:
-
-\begin{equation}
-	\psi^n < \frac {\sqrt5} {2}
-\end{equation}
-
-We are damn sure that $\sqrt5$ is bigger than 2. It means that the right side of our equation is bigger than $1$. Now we need to only prove that $\psi^n$ is smaller than one. How do we do that? The definition of $\psi$ comes to the rescue! We know that $\psi=(1-\sqrt5) / 2$. The problem now reduced to proving that $1 - \sqrt5 < 2$. $\sqrt5$ cannot be bigger than $3$. And it means that the equation $1 - \sqrt5$ is indeed smaller than $2$ and our statement that $Fib(n)$ is the closest integer to $\phi^n / \sqrt5$ holds true.
-
-\begin{figure}
-    \centering
-    \caption{Simulation Results}
-    \label{simulationfigure}
-\end{figure}
-
-\section{Conclusion}
-The conclusion is to be written yet.
+\input{chap1/ex-1.13}
+\input{chap1/ex-1.14}
 
 \end{document}

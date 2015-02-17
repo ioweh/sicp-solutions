@@ -1,3 +1,6 @@
-/help/*
+help/*
+!/help/chap1/
 !*.tex
-*.scm
+*.swp
+*.swo
+*~

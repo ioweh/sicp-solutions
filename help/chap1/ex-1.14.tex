@@ -1,0 +1,27 @@
+\section{Exercise 1.14}
+
+Let's analyze the number of steps. For the case when we count change for one kind of coins, it can easily be noticed that we need to perform $\Theta(n)$ steps, where $n$ is the amount of coins. Now let's consider the case where the number of the kinds of coins equals to 2. The following diagram represents the pattern of computation:
+
+\[
+	\begin{diagram}
+		\node[2]{cc\;n\; 2} \arrow{sw}
+		\arrow{se}
+		\\
+		\node{cc\;n\;1} \node[2]{cc\;(n-const)\;2}
+	\end{diagram}
+\]
+
+We know that the left side has order of growth equal to n. And we can see that the right side will produce $n$ approximately $n/const$ times. Thus, the number of steps used by this process approximates to $n+n+n\dots$ $n/const$ times, which is $\Theta(n^2)$.
+
+We can see some pattern here, but to be sure what it is, let's move on to the next case, where the number of kinds of coins equals to $3$. The diagram for this case looks like this:
+
+\[
+	\begin{diagram}
+		\node[2]{cc\;n\; 3} \arrow{sw}
+		\arrow{se}
+		\\
+		\node{cc\;n\;2} \node[2]{cc\;(n-const)\;3}
+	\end{diagram}
+\]
+
+The same reasoning takes place here. We evaluate the left side, which has order of growth equal to $\Theta(n^2)$ and we need to add this number of steps $n/const$ times, therefore, the overall order of growth is $\Theta(n^3)$. Thus, we can make a conclusion that the amount of steps required is $n^k$ where n is the amount of money and $k$ is the number of kinds of coins.
