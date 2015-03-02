@@ -1,0 +1,64 @@
+\section{Exercise 1.14}
+
+Let's prove this formula first:
+
+\begin{equation}
+	\sin x = \sin \frac {r} {3} - 4 \sin^3 \frac {r} {3}
+\end{equation}
+
+We'll use this formula
+
+\begin{equation}
+	\sin (a+b) = \sin a \cos b + \cos a \sin b
+\end{equation}
+
+Now, let's expand the following equation:
+
+\begin{gather}
+	\sin(2a+a) = \sin 2a \cos a + \cos 2a \sin a = \\
+	\sin 2a \cos a + \left(1 - 2 \sin^2 a\right) \sin a = \\
+	\sin 2a \cos a + \sin a - 2 \sin^3 a = 
+	2 \sin a \cos^2 a + \sin a - 2 \sin^3 a = \\
+	2 \sin a \left(1 - sin^2 a\right) + \sin a - 2 \sin^3 a = 
+	3 \sin a - 4 \sin^3 a
+\end{gather}
+
+From this equation it's easy to see that
+
+\begin{equation}
+	\sin x = 3 \sin \frac {x} {3} - 4 \sin^3 \frac {x} {3}
+\end{equation}
+
+Let's try to count the amount of times the procedure p applied. At each step the angle divides by 3. So we have the following process:
+
+\[
+\begin{aligned}
+	12.15 / 3 = 4.05 \\
+	4.05 / 3 = 1.35 \\
+	1.35 / 3 = 0.45 \\
+	0.45 / 3 = 0.15 \\
+	0.15 / 3 = 0.5
+\end{aligned}
+\]
+
+$0.5$ is less than $0.1$ so our condition has been reached. From here we see that the procedure is applied 5 times.
+
+It's time to estimate the order of growth in space and number of steps used by the process. To do this let's take a note that each step $a$ divides by $3$ n times until it reaches $0.1$.
+
+\begin{equation}
+	\underbrace{a / 3 / 3 / 3 \dots}_{n\ times}
+\end{equation}
+
+Oh, boy, we can clearly see from this formula that the process grows logarithmically.
+
+\[
+	\begin{aligned}
+		\frac {a} {3^n} &< 0.1 \\
+		a &< 0.1\ 3^n \\
+		10\ a &< 3^n \\
+		\log _3 10\ a &< n \\
+		n &> \log _3 10\ a \\
+	\end{aligned}
+\]
+
+We see that logarithm grows logarithmically (Captain Obvious comes to rescue). The space is proportional to the amount of steps required and therefore also grows as $\log _3 10\ a$, i.e. has the order of growth $\Theta(\log a)$.

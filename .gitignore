@@ -3,4 +3,5 @@ help/*
 !*.tex
 *.swp
 *.swo
+*.log
 *~
