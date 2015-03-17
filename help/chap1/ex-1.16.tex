@@ -1,0 +1,23 @@
+\section{Exercise 1.13}
+
+The whole process here depends on the computations for even and odd numbers.
+
+\begin{equation}
+	b^n = \left(b^2\right)^{n/2} = \left(b_{\text{new}}\right)^{n_{\text{new}}}
+\end{equation}
+
+We just keep dividing n until we get an odd number. In this case we do the following:
+
+\begin{equation}
+	b^n = b\,b^{n-1} \; \text{and} \; a\,b^n = a\,b\,b^{n-1} = a_{\text{new}}\,b^{n_{\text{new}}}
+\end{equation}
+
+From here it's clear that b goes to a and the quantity remains intact.
+
+In the end of the process we will be left with $n=1$ and the equation will look like this:
+
+\begin{equation}
+	a\,b^1 = a\,b = a_{\text{new}}
+\end{equation}
+
+We can see that the answer is given by the value of a at the end of the process.
