@@ -1,4 +1,4 @@
-As scheme uses eager evaluation, all the arguments of the new-if procedure should be evaluated. The first argument will evaluate fine, while evaluating the second argument will lead to a disaster! Indeed, let's see ourselves what will happen if we use the new version of if:
+As scheme uses eager evaluation, all the arguments of the new-if procedure should be evaluated. The second argument will evaluate fine, while evaluating the third argument will lead to a disaster! Indeed, let's see ourselves what will happen if we use the new version of if:
 
 new-if (good-enough? guess x)
     guess				! evaluates fine
