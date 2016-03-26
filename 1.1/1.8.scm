@@ -12,3 +12,5 @@
 
 (define (good-enough? guess x)
   (< (abs (- (improve guess x) guess)) (* guess 0.001)))
+
+Note: by using the more effective good-enough? implementation, we also make the procedure more abstract and need to rewrite less code in the future.
