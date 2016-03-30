@@ -2,6 +2,8 @@
 
 You can see that Fib(2) expands to 2 leaves. Fib(1) expands to just 1. Clearly, Fib(3) is the sum of the leaves taken from Fib(2), which is 2, and Fib(1), which is 1. We can see that their sum is the value of Fib(4). We see that the values are shifted in this case, but the counting process remains the same, the number of leaves on the n-th step is Fib(n+1).
 
+Note: there's a more detailed proof by math induction. All you have to do is to prove the base case and then move on to the induction step.
+
 1.2.3  Orders of Growth
 
 A pretty clear explanation is given in wikipedia:
