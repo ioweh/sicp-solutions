@@ -101,3 +101,6 @@ From the previous example we know that (A 1 n) evaluates to 2^n. In our case it'
 2^2^2^2
 2^2^4
 2^16
+
+Some truly brilliant information can be found here:
+https://www.quora.com/What-is-the-use-of-Ackermanns-function
