@@ -104,3 +104,15 @@ From the previous example we know that (A 1 n) evaluates to 2^n. In our case it'
 
 Some truly brilliant information can be found here:
 https://www.quora.com/What-is-the-use-of-Ackermanns-function
+
+heck
+Ackermann function is freaking beautiful
+2+2+2+...+2 (n times) = 2*n
+now let's get the operand produced by the first step, which is *
+and use it once again in the following way:
+2*2*2*...*2 (n times) = 2^n
+let's continue the game
+2^2^2^...^2 (n times) = 2$n (hah, just introduced a new operator here!)
+2$2$2$...$2 (n times) = 2#n (let's invent one more operator)
+and get to the Knuth's up-arrow notation in no time:
+https://en.wikipedia.org/wiki/Knuth's_up-arrow_notation
