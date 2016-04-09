@@ -24,3 +24,5 @@ phi+1=2*(+ 1 sqrt(5) 2)/(* 2 2) = (+ 1 (* 2 sqrt(5)) 5)/4 = (1+(sqrt 5))^2/4 => 
 psi+1=(1 - (sqrt 5) + 2)/2 = (2 - 2(sqrt 5) + 4) / 4 = (1 - 2(sqrt 5) + 5)/4 = ((1-(sqrt 5))^2)/4=psi^2 
 
 => F(n+2)=(phi^(n+2) - psi^(n+2))/(phi-psi)
+
+We can also notice that psi^(n)/(sqrt 5) < 1/2. So this proves the statement completely.
