@@ -9,6 +9,24 @@ Note: there's a more detailed proof by math induction. All you have to do is to 
 A pretty clear explanation is given in wikipedia:
 https://en.wikipedia.org/wiki/Big_O_notation#Example
 
+
+Exercise 1.15:
+
+To understand the trigonometric stuff, see this notions here:
+
+"There are many easy ways, but since you probably know the formulas for the sine and cosine of 2x and of a+b, just use those formulas on 3x = 2x + x"
+
+http://mathcentral.uregina.ca/QQ/database/QQ.09.99/sara1.html
+
+Also, see this one for an explanation why sin x = x when x is small:
+
+http://ocw.mit.edu/courses/mathematics/18-01sc-single-variable-calculus-fall-2010/1.-differentiation/part-a-definition-and-basic-rules/session-8-limits-of-sine-and-cosine/MIT18_01SCF10_Ses8a.pdf
+
+And this wikipedia article on angle sum and difference identities:
+
+https://en.wikipedia.org/wiki/List_of_trigonometric_identities
+
+
 The Fermat test
 
 A number can be represented in the following way:
