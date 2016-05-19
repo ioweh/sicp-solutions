@@ -1,6 +1,6 @@
 \section*{Exercise 1.14}
 
-Let's analyze the number of steps. For the case when we count change for one kind of coins, it can easily be noticed that we need to perform $\Theta(n)$ steps, where $n$ is the amount of coins. Now let's consider the case where the number of the kinds of coins equals to 2. The following diagram represents the pattern of computation:
+Let's analyze the number of steps. For the case when we count change for one kind of coins, it can easily be noticed that we need to perform $\Theta(n)$ steps, where $n$ is the amount of coins. Now let's consider the case where the number of the kinds of coins equals 2. The following diagram represents the pattern of computation:
 
 \[
 	\begin{diagram}
@@ -11,9 +11,9 @@ Let's analyze the number of steps. For the case when we count change for one kin
 	\end{diagram}
 \]
 
-We know that the left side has order of growth equal to n. And we can see that the right side will produce $n$ approximately $n/const$ times. Thus, the number of steps used by this process approximates to $n+n+n\dots$ $n/const$ times, which is $\Theta(n^2)$.
+We know that the left side has order of growth equal to $n$. And we can see that the right side will produce $n$ approximately $n/const$ times. Thus, the number of steps used by this process approximates to $n+n+n\dots$ $n/const$ times, which is $\Theta(n^2)$.
 
-We can see some pattern here, but to be sure what it is, let's move on to the next case, where the number of kinds of coins equals to $3$. The diagram for this case looks like this:
+We can see some pattern here, but to be sure what it is, let's move on to the next case, where the number of kinds of coins equals $3$. The diagram for this case looks like this:
 
 \[
 	\begin{diagram}

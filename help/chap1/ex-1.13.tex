@@ -18,7 +18,7 @@
 		Fib(1) = {\frac {\left(\phi^1-\psi^1 \right)} {\sqrt5}} = \frac {1 + \sqrt5 - 1 + \sqrt5} {2\sqrt5} = \frac {2\sqrt5} {2\sqrt5} = 1
 	\end{equation}
 
-The basis has been proven. We can safely assume that, in the case of fibonacci numbers, the statement that $Fib(n) = \left(\phi^n-\psi^n\right)/\sqrt5$ holds true for both $Fib(n-1)$ and $Fib(n)$. Now we need to prove the same statement for the $Fib(n+1)$ number.
+The basis has been proven. Let's now assume that, in the case of Fibonacci numbers, the statement that $Fib(n) = \left(\phi^n-\psi^n\right)/\sqrt5$ holds true for both $Fib(n-1)$ and $Fib(n)$. Now we need to prove the same statement for the $Fib(n+1)$ number.
 
 \begin{multline}
 	Fib(n+1) = Fib(n) + Fib(n-1) = \frac {\left(\phi^n-\psi^n\right)} {\sqrt5} + \frac {\left(\phi^{n-1}-\psi^{n-1}\right)} {\sqrt5} = \\
@@ -53,7 +53,7 @@ Performing the same calculations as for the first case, we receive:
 
 This also means that $\psi+1 = \psi^2$
 
-Having said that, we see that our equation for calculating fibonacci numbers takes the following look:
+Having said that, we see that our equation for calculating Fibonacci numbers takes the following look:
 
 \begin{equation}
 	Fib(n+1) = \frac {\phi^{n-1}\phi^2} {\sqrt5} - \frac{\psi^{n-1}\psi^2} {\sqrt5} = \frac {\phi^{n+1} - \psi^{n+1}} {\sqrt5}
