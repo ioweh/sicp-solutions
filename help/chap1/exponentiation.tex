@@ -1,0 +1,100 @@
+\section*{Exponentiation}
+
+Let's review the fast-expt procedure. The total number of steps is the sum of all the steps where we can divide the $n$ by 2 without a remainder and the steps where we decrease the $n$ by 1 (each step takes exactly one multiplication).  The total number of cases when the n is odd is equal to the number of ones in the binary representation of n. To see why this is so, consider dividing a binary number, for example 4, by 2:
+
+\begin{align*}
+4& = 100\\
+4 / 2&  = 010
+\end{align*}
+
+Each division just shifts the digits to the right. Zeros can be shifted easily, while shifting ones requires one additional step, namely, subtracting 2 to the power of 0, which is 1, from the number. In the binary representation, it will just replace the rightmost number 1 with 0. The total number of such shifts will be the number of multiplications for the cases when n is odd.
+
+Now when n is even, at each step it divides by 2. This process is described well by the following equation:
+
+\[
+n_{even} = \underbrace{2\ 2\ 2\ \dots}_\text{$N$ times}
+\]
+
+At each step $n$ divides by 2 without a remainder (all remainders have already been counted). Therefore, the total number of steps for the cases when n is even is:
+
+\[
+N = \log_2 n
+\]
+
+So, the total number of multiplications is equal to log base 2 of $n$ plus the number of ones in the binary representation of $n$. Also note that the number of multiplications for all the cases when $n$ is even cannot exceed the number of multiplications for odd $n$. Even if the number $n$ consists of all ones in its binary representation, after we make one multiplication for the case when $n$ is odd, right after that, we make a multiplication for the case when $n$ is even. Thus, the total number of steps will always be $N < 2 \log_2 n$.
+
+Now let's digress a little and prove a couple of formulae. The first one is gonna be:
+
+\[
+\log_b x^p = p \log_b x
+\]
+
+Let's rewrite the number $x^p$ in the following way:
+
+\[
+x^p = b^{\log_b x^p}
+\]
+
+Also, take note that:
+
+\[
+x^p = \underbrace{x \dots x}_\text{$p$ times} = \underbrace{b^{\log_b x} \dots b^{\log_b x}}_\text{$p$ times} = 
+b^{p \log_b x}
+\]
+
+At the same time:
+
+\[
+x^p = b^{\log_b x^p}
+\]
+
+Therefore:
+
+\begin{equation}
+\log_b x^p = p \log_b x \label{logarithm_power}
+\end{equation}
+
+Let's use this equation to prove the following formula:
+
+\[
+\log_a x = \frac{\log_b x}{\log_b a}
+\]
+
+For that, let's consider this equation:
+
+\[
+\log_a x = y
+\]
+
+From the logarithm definition, it follows that:
+
+\[
+a^y = x
+\]
+
+Now let's rewrite it in this way:
+
+\[
+\log_b a^y = \log_b x
+\]
+
+We can rewrite the former equation using \eqref{logarithm_power}:
+
+\[
+y \log_b a = \log_b x
+\]
+
+And, finally, we receive this:
+
+\[
+\log_a x = \frac{\log_b x}{\log_b a}
+\]
+
+Now we finally can rewrite the equation for the total number of steps (let's denote it $N$):
+
+\[
+N < 2 \log_2 n < \frac{2}{\log a} \log n
+\]
+
+The arbitrary constants $k_1$ and $k_2$ in the definition of order notation allow us to get rid of the $\frac{2}{\log a}$ term. And therefore, the whole process has $\Theta(\log n)$ order of growth.
+
