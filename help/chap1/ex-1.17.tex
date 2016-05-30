@@ -1,0 +1,26 @@
+\section*{Exercise 1.17}
+
+\newcommand{\atimes}{a\ a\ a\ \dots\ a}
+
+Let's transform this expression:
+
+\[
+\underbrace{\atimes}_\text{$b$ times}
+\]
+
+To the following one:
+
+\[
+\underbrace{\atimes}_\text{$b / 2$ times} \underbrace{\atimes}_\text{$b / 2$ times}
+\]
+
+It easily transforms to the following code:
+
+\begin{verbatim}
+(define (mul a b)
+  (cond ((= b 0) 0)
+        ((odd? b) (+ a (mul a (- b 1))))
+        (else (double (mul a (halve b))))))
+\end{verbatim}
+
+The procedure generates a recursive exponentiation process, which has both $\Theta(\log n)$ space and time complexity.
