@@ -36,3 +36,12 @@ cn + 0 = const
 
 And the answer will be readily produced by cn.
 
+***
+
+To correct some of the previous errors, here's an updated version of an iterative algorithm:
+
+(define (fast-mul-iter-step a b k)
+  (cond ((= b 0) k)
+	((odd? b) (fast-mul-iter-step a (- b 1) (+ a k)))
+	(else (fast-mul-iter-step (* 2 a) (/ b 2) k))))
+

@@ -1,0 +1,67 @@
+\section*{Exercise 1.18}
+
+We better use the invariant quantity for designing such a procedure. It can be described by the following expression:
+
+\[
+ab + k
+\]
+
+Suppose that at the first step $b$ is even and can be divided by 2 without a remainder.
+
+\[
+(2a_1)(b_1 / 2) + k_1
+\]
+
+Note that $k_1$ is still 0 at this step. We can rewrite the expression in the following way:
+
+\[
+a_2 b_2 + k_2
+\]
+
+Now let's assume that $b_2$ is odd and use the following transformation:
+
+\[
+a_2 + a_2 (b_2 - 1) + k_2
+\]
+
+Or, rewriting it:
+
+\[
+a_2 (b_2 - 1) + (a_2 + k_2) 
+\]
+
+Let's rewrite this once again:
+
+\[
+a_3 b_3 + k_3
+\]
+
+And so on... At the step before the last step we have:
+
+\[
+a_{n-1} b_{n-1} + k_{n - 1}
+\]
+
+Note that $b_{n - 1}$ at this step equals 1, which means that it's odd. Therefore, we apply the following transformation:
+
+\[
+a_{n - 1}(b_{n - 1} - 1) + (a_{n-1} + k_{n - 1})
+\]
+
+From here we get:
+
+\[
+k_n = a_{n - 1} + k_{n - 1}
+\]
+
+Note that the result of the expression doesn't change from step to step. So the answer is given by $k_n$ received in the last step of the process. All of the notions easily transform to the following code:
+
+\begin{verbatim}
+(define (fast-mul-iter-step a b k)
+  (cond ((= b 0) k)
+	((odd? b) (fast-mul-iter-step a (- b 1) (+ a k)))
+	(else (fast-mul-iter-step (* 2 a) (/ b 2) k))))
+\end{verbatim}
+
+This is an iterative process that uses a logarithmic number of steps and has $\Theta(1)$ space complexity.
+
