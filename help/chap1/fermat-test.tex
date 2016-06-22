@@ -1,0 +1,41 @@
+\section*{The Fermat test}
+
+After watching some videos on youtube, we come to the conclusion that the difference $a^p - a$ should be divisible by $p$ if $p$ is prime. It easily transforms into the following equation:
+
+\[
+a^p - a = xp
+\]
+
+where $x$ is an integer. This equation can be rewritten in the following way:
+
+\[
+a^p = xp + a
+\]
+
+where $a$ is the remainder of division of $a$ by $p$. We can rewrite it so:
+
+\[
+\text{rem}\left(\frac{a^p}{p} \right) = a
+\]
+
+Now we need to consider 2 different cases: the first one when the exponent $p$ (let's denote it $2k$) is even:
+
+\[
+\text{rem} \left(\frac{a^{2k}}{n}\right) = \text{rem}\left(\left(\text{rem}\left(\frac{a^k}{n}\right)\right)^2 /n \right)
+\]
+
+And when the exponent $p$ (let's denote it $k$) is odd:
+
+\[
+\text{rem}\left(\frac{a^k}{n}\right) = \text{rem}\left(\left(\text{rem}\left(\frac{a^{k-1}}{n}\right) \text{rem}\left(\frac{a}{n}\right)\right) / n \right)
+\]
+
+We chose $a$ to be less than $n$. This means that the remainder of division of $a$ by $n$ is always $a$. Therefore, the equation above can be rewritten in the following way:
+
+\[
+\text{rem}\left(\frac{a^k}{n}\right) = \text{rem}\left(\left(\text{rem}\left(\frac{a^{k-1}}{n}\right) a \right) / n \right)
+\]
+
+Now, let's consider the final condition in the process. When we reach 1 at the end of the computation, it means that we get 1, as the remainder of 1 divided by any number will always be 1 (and we surely don't divide by 1 through the whole process).
+
+All the reasonings above give us the way to construct the procedure for implementing the Fermat test.

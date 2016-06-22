@@ -27,6 +27,22 @@ And this wikipedia article on angle sum and difference identities:
 https://en.wikipedia.org/wiki/List_of_trigonometric_identities
 
 
+See the nice visual proof of Fermat's Little Theorem here:
+https://www.youtube.com/watch?v=OoQ16YCYksw
+
+Along with the primality test:
+https://www.youtube.com/watch?v=oUMotDWVLpw
+
+And notes on module (or congruence):
+https://www.youtube.com/watch?v=3QnD2c4Xovk
+
+Along with notes on modular arithmetic:
+https://en.wikipedia.org/wiki/Modular_arithmetic
+
+And here (by counting necklaces):
+https://en.wikipedia.org/wiki/Proofs_of_Fermat%27s_little_theorem
+
+
 The Fermat test
 
 A number can be represented in the following way:
@@ -42,8 +58,8 @@ rem(a*b/n) = rem((x*n + rem(a/n))(y*n + rem(b/n))/n) =
 = rem(x*n*y*n/n) + rem(x*n*rem(b/n)/n) + rem(y*n*rem(a/n)/n) + rem(rem(a/n)*rem(b/n)/n)
 
 rem(x*n*y*n/n) = 0       as x*n*y*n divides by n
-rem(x*n*rem(b/n)/n) = 0  as x*n*rem(b/n) divides by n
-rem(y*n*rem(a/n)/n) = 0  as y*n*rem(a/n) divides by n
+rem(x*n*rem(b/n)/n) = 0  as x*n*rem(b/n) divides by n as rem(b/n) is an integer
+rem(y*n*rem(a/n)/n) = 0  as y*n*rem(a/n) divides by n as rem(a/n) is an integer
 
 The only one term is left: 
 

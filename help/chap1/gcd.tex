@@ -1,0 +1,39 @@
+\section*{Euclid's algorithm}
+
+\subsection*{Procedure}
+
+The Euclidean algorithm proceeds in a series of steps such that the output of each step is used as an input for the next one. The algorithm can be written as a sequence of equations
+
+\begin{align*}
+a &= q_0 b + r_0\\
+b &= q_1 r_0 + r_1\\
+r_0 &= q_2 r_1 + r_2\\
+r_1 &= q_3 r_2 + r_3\\
+&\dots
+\end{align*}
+
+Since the remainders decrease with every step but can never be negative, a remainder $r_N$ must eventually equal zero, at which point the algorithm stops. The final nonzero remainder $r_{N-1}$ is the greatest common divisor of a and b. The number $N$ cannot be infinite because there are only a finite number of nonnegative integers between the initial remainder $r_0$ and zero.
+
+\subsection*{Proof of validity}
+
+The validity can be proven by a two-step argument. In the first step, the final nonzero remainder $r_{N-1}$ is shown to divide both $a$ and $b$. Since it is a common divisor, it must be less than or equal to the greatest common divisor $g$. In the second step, it is shown that any common divisor of $a$ and $b$, including $g$, must divide $r_{N-1}$, therefore, $g$ must be less than or equal to $r_{N-1}$. These two conclusions are inconsistent unless $r_{N-1}$ = g.
+
+Let's prove the first step and demonstrate that $r_{N-1}$ divides both $a$ and $b$. For that, let's consider that $r_{N-1}$ divides its predecessor $r_{N-2}$:
+
+\[
+r_{N-2} = q_N r_{N-1}
+\]
+
+since the final remainder $r_N$ is zero. $r_{N-1}$ also divides its next predecessor $r_{N-3}$
+
+\[
+r_{N-3} = q_{N-1} r_{N-2} + r_{N-1}
+\]
+
+because it divides both terms on the right-hand side of the equation. Iterating the same argument, we can show that $r_{N-1}$ divides all the preceding remainders, including $a$ and $b$. None of the preceding remainders $r_{N-2}, r_{N-3},$ etc. divide $a$ and $b$, since they leave a remainder. Since $r_{N-1}$ is a common divisor of $a$ and $b$, $r_{N-1} \le g$.
+
+In the second step, let's assume that there's a natural number $c$ that divides both $a$ and $b$. Then, $a$ and $b$ can be written as multiples of $c$: $a=m c$ and $b = nc$, where $m$ and $n$ are natural numbers. Therefore, $c$ divides the initial remainder $r_0$, since $r_0 = a - q_0 b = mc - q_0 n c = (m - q_0 n)c$. An analogous argument argument shows that $c$ also divides the subsequent remainders $r_1, r_2,$ etc. Therefore, the greatest common divisor $g$ must divide $r_{N-1}$, which implies that $g \le r_{N-1}$. Since the first part of the argument showed the reverse $(r_{N-1} \le g)$, it follows that $g = r_{N-1}$. Thus, $g$ is the greatest common divisor of all the succeeding pairs:
+
+\[
+g = \gcd (a, b) = \gcd (b, r_0) = \gcd (r_0, r_1) = \dots = \gcd (r_{N-2}, r_{N-1}) = r_{N-1}.
+\]
