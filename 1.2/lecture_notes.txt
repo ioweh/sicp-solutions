@@ -77,3 +77,17 @@ n = 5
 
 rem(9*8/5) = rem(72/5) = 2
 rem(9*8/5) = rem(rem(9/5)*rem(8/5)/5) = rem(4*3/5) = rem(12/5) = 2
+
+
+Note: as mentioned here, 
+
+https://stackoverflow.com/questions/2852249/can-you-execute-multiple-statements-in-an-if-statement
+
+"You can't use multiple statements with if, except with progn as posted above. But there is the cond form"
+
+but
+
+"you could also use the (begin exp1 exp2...) syntax to evaluate more than one expression"
+
+Also see progn in common lisp.
+
