@@ -76,3 +76,11 @@
 
 (* 2.88 (sqrt 10))
 ;Value: 9.10735
+
+
+Note: it's better to use notion of short-circuiting and rewrite the code in the following way:
+
+(define (search-for-primes n counter)
+  (if (< counter 3) (if (and (odd? n) (prime? n) (timed-prime-test n)) (search-for-primes (+ n 1) (+ counter 1))
+			(search-for-primes (+ n 1) counter))))
+

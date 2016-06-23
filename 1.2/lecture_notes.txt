@@ -91,3 +91,8 @@ but
 
 Also see progn in common lisp.
 
+Also see this:
+
+https://stackoverflow.com/questions/11263359/is-there-a-possibility-of-multiple-statements-inside-a-conditional-statements-b
+
+"Unlike C++, most uses of conditionals are not going to be for mutating a variable or printing values. "
