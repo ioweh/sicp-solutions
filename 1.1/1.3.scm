@@ -7,25 +7,15 @@
 	((and (< y z) (< y x)) (sum-of-squares x z))
 	(else (sum-of-squares x y))))
 
-(define (sum-largest-two-of-three a b c)
-  (if (> a b)
-      (if (> b c)
-	  (+ (* a a) (* b b))
-	  (+ (* a a) (* c c)))
-      (if (> a c)
-	  (+ (* a a) (* b b))
-	  (+ (* b b) (* c c)))))
 
-(sum-largest-two-of-three 1 2 3)
+(define (sum-of-largest-squares a b c)
+  (cond ((and (> a c) (> b c)) (sum-of-squares a b))
+	((and (> a b) (> c b)) (sum-of-squares a c))
+	(else (sum-of-squares b c))))
 
-(sum-largest-two-of-three 3 2 1)
 
-(sum-largest-two-of-three 8 1 3)
 
-(sum-largest-two-of-three 1 3 8)
 
-(sum-largest-two-of-three 1 8 3)
 
-(sum-largest-two-of-three 3 8 1)
 
 
