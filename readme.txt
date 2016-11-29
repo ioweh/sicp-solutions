@@ -9,3 +9,5 @@ If you run scheme on windows, open the right-click menu of the MIT-GNU Scheme sh
 For the text to be copied from Edwin, set a mark: [Ctrl-spacebar]
 Then copy it: [Meta-W]
 To paste back from Windows: [Ctrl-Y]
+
+Note that the mit-scheme-9.0.1 doesn't open the files correctly. The version 9.0 works just fine.
