@@ -50,3 +50,10 @@ http://community.schemewiki.org/?sicp-ex-1.7
 
 (sqrt 2)
 ;Value: 1.4142156862745097
+
+
+If x is set close to 0.001 and lower, the difference between (square guess) and x can be significant in terms of these numbers. But this difference will be less than the predetermined tolerance still.
+
+For big numbers, if the precision is limited, the guess (that will be large enough) can not converge to the right value, but rather move around it eternally, if the errors related to limited precision exceed the value of 0.001 that we set initially.
+
+All of this will be fixed if we monitor the guess and stop the procedure when it changes very slightly, meaning that the difference between the old guess and a new one will be just some small part of the guess.
