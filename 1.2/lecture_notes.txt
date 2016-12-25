@@ -26,6 +26,10 @@ And this wikipedia article on angle sum and difference identities:
 
 https://en.wikipedia.org/wiki/List_of_trigonometric_identities
 
+Also see this link for the list of logarithmic identities:
+
+https://en.wikipedia.org/wiki/List_of_logarithmic_identities
+
 
 See the nice visual proof of Fermat's Little Theorem here:
 https://www.youtube.com/watch?v=OoQ16YCYksw
