@@ -31,6 +31,11 @@ Also see this link for the list of logarithmic identities:
 https://en.wikipedia.org/wiki/List_of_logarithmic_identities
 
 
+The proof of Euclidean algorithm:
+
+https://en.wikipedia.org/wiki/Euclidean_algorithm#Proof_of_validity
+
+
 See the nice visual proof of Fermat's Little Theorem here:
 https://www.youtube.com/watch?v=OoQ16YCYksw
 
