@@ -84,3 +84,12 @@ Note: it's better to use notion of short-circuiting and rewrite the code in the 
   (if (< counter 3) (if (and (odd? n) (prime? n) (timed-prime-test n)) (search-for-primes (+ n 1) (+ counter 1))
 			(search-for-primes (+ n 1) counter))))
 
+
+Another implementation:
+
+(define (search-for-primes n1 n2)
+  (if (odd? n1)
+      (timed-prime-test n1))
+  (if (< n1 n2)
+      (search-for-primes (+ n1 1) n2)))
+
