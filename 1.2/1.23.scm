@@ -237,3 +237,5 @@ Another run of the algorithm:
 10000000000129 *** 6.390000000000015
 ;Unspecified return value
 
+
+The observed ratio is approximately 1.6 and not 2. It's because we introduced some overhead when rewrote the code incrementing the test divisor (+ test-divisor 1) with the 'next' procedure.
