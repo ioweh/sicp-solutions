@@ -105,3 +105,16 @@ Also see this:
 https://stackoverflow.com/questions/11263359/is-there-a-possibility-of-multiple-statements-inside-a-conditional-statements-b
 
 "Unlike C++, most uses of conditionals are not going to be for mutating a variable or printing values. "
+
+
+A note on the Miller-Rabin test:
+
+https://www.cs.cornell.edu/courses/cs4820/2010sp/handouts/MillerRabin.pdf
+
+If x, n are positive integers such that x^2 is congruent to 1 (mod n) but x is not congruent to +/-1 (mod n), then n is composite.
+
+Proof. The hypotheses of the lemma imply that n is a divisor of x^2-1 = (x+1)(x-1), but n divides neither x + 1 nor x - 1. This is impossible when n is prime.
+
+See this SO question for examples:
+https://stackoverflow.com/questions/3733384/confused-on-miller-rabin
+
