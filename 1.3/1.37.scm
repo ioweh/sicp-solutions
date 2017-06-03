@@ -55,6 +55,26 @@ Let's write the cont-frac procedure that generates an iterative process.
 ;Value: 1.6180555555555556
 
 
+***
 
+Some other solutions:
+
+
+(define (cont-frac n d k)
+  (define (cont-frac-rec n d counter)
+    (if (= counter k)
+	(/ (n k) (d k))
+	(/ (n k) (+ (d k) (cont-frac-rec n d (+ counter 1))))))
+  (cont-frac-rec n d 1))
+;Value: cont-frac
+
+
+(define (cont-frac n d k)
+  (define (cont-frac-iter n d k acc)
+    (if (= k 0)
+	acc
+	(cont-frac-iter n d (- k 1) (/ (n k) (+ (d k) acc)))))
+  (cont-frac-iter n d k 0))
+;Value: cont-frac
 
 
