@@ -16,11 +16,15 @@
 ;Value: .7182818352059925
 
 
+***
+
+The other solution:
 
 
-
-
-
-
+(+ (cont-frac (lambda (i) 1.0)
+	      (lambda (i) (if (= (remainder (+ i 1) 3) 0)
+			      (* (/ (+ i 1) 3) 2)
+			      1.0)) 20) 2)
+;Value: 2.718281828459045
 
 
