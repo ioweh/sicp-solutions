@@ -28,3 +28,31 @@
 ;Value: 21
 
 
+
+***
+
+
+We could also write the procedure like that:
+
+
+(define (repeated f n)
+  (if (= n 1)
+      f
+      (compose f (repeated f (- n 1)))))
+;Value: repeated
+
+((repeated square 2) 5)
+;Value: 625
+
+Which readily translates to:
+
+(define (repeated f n)
+  (if (= n 1)
+      f
+      (lambda (x) (f ((repeated f (- n 1)) x)))))
+;Value: repeated
+
+((repeated square 2) 5)
+;Value: 625
+
+
