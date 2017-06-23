@@ -42,3 +42,13 @@ we need to apply (smooth (smooth (smooth ... sin)))
 and not (smooth (smooth (smooth ... number(like 5))))
 
 Hence, we pass a function (sin) to the repeated procedure.
+
+
+***
+
+Just another solution:
+
+(define (n-fold-smooth f n)
+  ((repeated smooth n) f))
+;Value: n-fold-smooth
+
