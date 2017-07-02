@@ -85,3 +85,74 @@ Use the change of base formula to compute the logarithm of n with respect to the
 ;Value: log2
 
 
+***
+
+Note: we also need to use the floor function for the algorithm to run correctly. Here's how to come to an improved solution:
+
+
+First, we need to define exponentiation. Let's do it via the already defined repeated procedure.
+
+
+(define (repeated f n)
+  (if (= n 1)
+      f
+      (lambda (x) (f ((repeated f (- n 1)) x)))))
+;Value: repeated
+
+
+(define (power y n)
+  (cond ((= n 0) 1)
+	((= n 1) y)
+	(else ((repeated (lambda (x) (* x y)) (- n 1)) y))))
+;Value: power
+
+
+After defining the power procedure, let's implement the procedure computing roots with an arbitrary parameter specifying how many times average damping should be repeated.
+
+
+(define (nth-root x n avg-damp-times)
+  (fixed-point ((repeated average-damp avg-damp-times) (lambda (y) (/ x (power y (- n 1)))))
+	       1.0))
+;Value: nth-root
+
+
+Then let's try to guess the number of times we need to run the procedure.
+
+
+(nth-root 2 4 1)
+;Quit!
+
+(nth-root 2 8 2)
+;Quit!
+
+(nth-root 2 16 3)
+;Quit!
+
+(nth-root 2 32 4)
+;Quit!
+
+(nth-root 2 64 5)
+;Quit!
+
+(nth-root 2 128 6)
+;Quit!
+
+
+The clear pattern can be seen here. The number of average damps grows logarithmically with the root n.
+
+Now let's define the logarithm with the base 2.
+
+
+(define (log2 a)
+  (/ (log a) (log 2)))
+;Value: log2
+
+
+As the numbers can be non-integer, we'll need to use the floor function in the final implementation of the nth root:
+
+
+(define (nth-root-fixed x n)
+  (fixed-point ((repeated average-damp (floor (log2 n))) (lambda (y) (/ x (power y (- n 1)))))
+	       1.0))
+;Value: nth-root-fixed
+
