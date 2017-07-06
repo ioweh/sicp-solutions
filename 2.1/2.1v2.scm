@@ -51,3 +51,14 @@
 1/2
 ;Unspecified return value
 
+
+***
+
+Another, more concise solution:
+
+(define (make-rat n d)
+  (define (normalize n) (if (> d 0) n (* -1 n)))
+  (let ((g (gcd n d)))
+    (cons (/ (normalize n) g) (/ (abs d) g))))
+;Value: make-rat
+
