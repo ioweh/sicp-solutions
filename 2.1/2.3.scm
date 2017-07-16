@@ -139,3 +139,69 @@ a, b are the segments, which represent the sides of the rectangle
 
 
 
+***
+
+Let's use a simpler implementation:
+
+ 
+(define (perimeter rect)
+  (* 2 (+ (width rect) (height rect))))
+;Value: perimeter
+
+
+(define (area rect)
+  (* (width rect) (height rect)))
+;Value: area
+
+
+; Now we'll also need to correct the width and height procedures when we change the make-rect procedure.
+
+; Let's define a rectangle as two segments. We'll use the same procedure for calculating length of a segment and creating a point and a segment and also their selectors as above.
+
+(define make-rect cons)
+;Value: make-rect
+
+(define (width rect)
+  (length (car rect)))
+;Value: width
+
+(define (height rect)
+  (length (cdr rect)))
+;Value: height
+
+(define ri1 (make-rect (make-segment (make-point 0 0)
+				     (make-point 0 2))
+		       (make-segment (make-point 0 0)
+				     (make-point 3 0))))
+;Value: ri1
+
+(perimeter ri1)
+;Value: 10
+
+(area ri1)
+;Value: 6
+
+
+; And now let's try a different definition:
+
+
+(define (make-rect p0 w h)
+  (cons p0 (cons w h)))
+;Value: make-rect
+
+(define (width rect)
+  (car (cdr rect)))
+;Value: width
+
+(define (height rect)
+  (cdr (cdr rect)))
+;Value: height
+
+(define ri2 (make-rect (make-point 1 1) 3 2))
+;Value: ri2
+
+(perimeter ri2)
+;Value: 10
+
+(area ri2)
+;Value: 6
