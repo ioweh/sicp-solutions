@@ -114,3 +114,61 @@ c
 (cdr-iterative d)
 ;Value: 16
 
+
+***
+
+There's one more solution. We can factorize the log3 (2^a * 3^b):
+
+log3 (2^a * 3^b) = a * log3 2 + b
+
+The first multiplier is not an integer, while the second one is an integer. We can exploit this fact and use the floor function to transform the equation above to the following one:
+
+log3 (2^a * 3^b) = k + b,
+
+where both terms are integers. Note that it's not important what k is. We will raise 3 to the power of the number we just received and take the greatest common divisor of the number x, which, in turn, is a cons of two other numbers, one of which we try to calculate.
+
+gcd(2^a * 3^b, 3^k * 3^b) = 3^b
+
+Now let's divide the number x by the result we received:
+
+2^a * 3^b / 3^b = 2^a
+
+And take the base 2 logarithm of the number:
+
+log2 2^a = a
+
+We just received the first item of the pair. All the conclusions for the second item can be done in a similar manner. The illustrating example is given below.
+
+
+(define (log3 x)
+  (/ (log x) (log 3)))
+;Value: log3
+
+(define (log2 x)
+  (/ (log x) (log 2)))
+;Value: log2
+
+(define (cons x y)
+  (* (expt 2 x) (expt 3 y)))
+;Value: cons
+
+(define x (cons 4 7))
+;Value: x
+
+x
+;Value: 34992
+
+(define (car x)
+  (log2 (/ x (gcd x (expt 3 (floor (log3 x)))))))
+;Value: car
+
+(car 34992)
+;Value: 4.
+
+(define (cdr x)
+  (log3 (/ x (gcd x (expt 2 (floor (log2 x)))))))
+;Value: cdr
+
+(cdr 34992)
+;Value: 7.
+
