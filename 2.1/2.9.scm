@@ -145,3 +145,33 @@ Upper bound: (* (upper-bound x) (upper-bound y))
 
 
 
+***
+
+
+Let's multiply one fixed interval by another one and remember the width of the result. Then, let's mutiply the first interval by yet another one with the same width as the one in the previous multiplication.
+
+1. (2, 3)
+2. (5, 7)
+
+The new interval is (10, 21).
+
+The width of the new interval is (21 - 10) / 2 = 5.5.
+
+Let's consider another combination:
+
+1. (2, 3)
+2. (10, 12)
+
+The widths are the same with the widths given in the previous example.
+
+The result of multiplication is the new interval: (20, 36). The width of this interval is (36 - 20) / 2 = 8.
+
+The resulting width is not the same with the one that we got in the previous example.
+
+
+Now let's consider division.
+
+We can operate on the same intervals from the previous example.
+
+Or, just take into account that the division operation includes multiplication. And for multiplication the width of the resulting interval doesn't depend on the widths of the intervals taking part in multiplication.
+
