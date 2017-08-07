@@ -51,3 +51,18 @@ i
 ; (RESTART 1) => Return to read-eval-print level 1.
 ;Start debugger? (y or n): n
 
+
+***
+
+One more solution:
+
+
+(define (div-interval x y)
+  (if (<= (* (upper-bound y) (lower-bound y)) 0)
+      (error "Division by interval spans zero")
+      (mul-interval x
+		    (make-interval (/ 1.0 (upper-bound y))
+				   (/ 1.0 (lower-bound y))))))
+;Value: div-interval
+
+
