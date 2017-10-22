@@ -24,3 +24,15 @@
 (same-parity 2 3 4 5 6 7)
 ;Value 19: (2 4 6)
 
+
+***
+
+(define (same-parity . args)
+  (define (same-parity-iter first-arg args)
+    (cond ((null? args) ())
+	  ((equal? (even? first-arg) (even? (car args)))
+	   (cons (car args) (same-parity-iter first-arg (cdr args))))
+	  (true (same-parity-iter first-arg (cdr args)))))
+  (same-parity-iter (car args) args))
+;Value: same-parity
+
