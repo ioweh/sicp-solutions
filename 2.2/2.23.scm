@@ -29,3 +29,14 @@ for-each
 ;Unspecified return value
 
 
+
+***
+
+
+(define (foreach proc items)
+  (if (null? items)
+      true
+      ((lambda ()
+	 (proc (car items))
+	 (foreach proc (cdr items))))))
+;Value: foreach
