@@ -33,3 +33,15 @@ The (car old-list) might be a list too, so we need to modify our procedure appro
 (deep-reverse x)
 ;Value 5: ((4 3) (2 1))
 
+
+***
+
+(define (deep-reverse items)
+  (define (deep-reverse-iter reversed-items items)
+    (cond ((null? items) reversed-items)
+ 	  ((not (pair? items)) items)
+	  (true (deep-reverse-iter (cons (deep-reverse (car items)) reversed-items)
+				   (cdr items)))))
+  (deep-reverse-iter () items))
+;Value: deep-reverse
+
