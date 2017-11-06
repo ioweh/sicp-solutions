@@ -66,3 +66,23 @@ x
 (fringe (list (list 1 2 3 4) (list 5 6) 7 8 9 (list (list 10 11) 12)))
 ;Value 16: (1 2 3 4 5 6 7 8 9 10 11 12)
 
+
+***
+
+; The most appropriate strategy is to apply wishful thinking here: we assume that the procedure fringe already works as expected and start constructing the algorithm from there.
+
+
+(define x (list (list 1 2) (list 3 4)))
+;Value: x
+
+(define (fringe items)
+  (cond ((null? items) ())
+	((pair? (car items)) (append (fringe (car items)) (fringe (cdr items))))
+	(else (cons (car items) (fringe (cdr items))))))
+;Value: fringe
+
+(fringe x)
+;Value 12: (1 2 3 4)
+
+x
+;Value 13: ((1 2) (3 4))
