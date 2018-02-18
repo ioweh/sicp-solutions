@@ -72,3 +72,8 @@
 (triples 10)
 ;Value 14: ((3 2 1) (4 2 1) (4 3 1) (4 3 2) (5 2 1) (5 3 1) (5 3 2) (5 4 1) (6 2 1) (6 3 1) (7 2 1))
 
+
+***
+
+- probably we should leave only test for equality in the sum-less-than-s? procedure
+

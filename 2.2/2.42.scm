@@ -207,32 +207,129 @@ Then we'll need to filter the last element.
 
 
 
+****
+
+A shorter solution:
 
 
 
+(define empty-board ())
+;Value: empty-board
 
+(define (adjoin-position new-row k rest-of-queens)
+  (cons new-row rest-of-queens))
+;Value: adjoin-position
 
+(define (safe? k positions)
+  (define (safe-iter currentColNum positions)
+    (define shift (+ (- k currentColNum) 1))
+    (cond ((null? (cdr positions)) true)
+	  ((or (= (car positions) (cadr positions))
+	       (= (+ (car positions) shift) (cadr positions))
+	       (= (- (car positions) shift) (cadr positions)))
+	   false)
+	  (true (safe-iter (- currentColNum 1) (cons (car positions) (cddr positions))))))
+  (safe-iter k positions))
+;Value: safe?
 
+(define (queens board-size)
+  (define (queen-cols k)
+    (if (= k 0)
+	(list empty-board)
+	(filter
+	 (lambda (positions) (safe? k positions))
+	 (flatmap
+	  (lambda (rest-of-queens)
+	    (map (lambda (new-row)
+		   (adjoin-position new-row k rest-of-queens))
+		 (enumerate-interval 1 board-size)))
+	  (queen-cols (- k 1))))))
+  (queen-cols board-size))
+;Value: queens
 
+(define (enumerate-interval low high)
+  (if (> low high)
+      ()
+      (cons low (enumerate-interval (+ low 1) high))))
+;Value: enumerate-interval
 
+(define (flatmap proc seq)
+  (accumulate append () (map proc seq)))
+;Value: flatmap
 
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+	  (accumulate op initial (cdr sequence)))))
+;Value: accumulate
 
+(length (queens 8))
+;Value: 92
 
+(define (insert-at pos els)
+  (if (or (= pos 1) (null? els))
+      (cons 1 els)
+      (cons (car els)
+	    (insert-at (- pos 1) (cdr els)))))
+;Value: insert-at
 
+(define (expand-column pos)
+  (insert-at pos (map (lambda (x) 0) (enumerate-interval 1 7))))
+;Value: expand-column
 
+(insert-at 3 (list 0 0 0 0))
+;Value 12: (0 0 1 0 0)
 
+(expand-column 3)
+;Value 13: (0 0 1 0 0 0 0 0)
 
+(define (accumulate-n op init seqs)
+  (if (null? (car seqs))
+      ()
+      (cons (accumulate op init (map car seqs))
+	    (accumulate-n op init (map cdr seqs)))))
+;Value: accumulate-n
 
+(accumulate-n + 0 (list (list 1 2 3) (list 4 5 6) (list 7 8 9) (list 10 11 12)))
+;Value 14: (22 26 30)
 
+(define (transpose mat)
+  (accumulate-n cons () mat))
+;Value: transpose
 
+(transpose (list (list 1 2 3) (list 4 5 6) (list 7 8 9)))
+;Value 15: ((1 4 7) (2 5 8) (3 6 9))
 
+(define test (list 6 3 1 8 5 2 4 7))
+;Value: test
 
+(define (print-matrix matrix)
+  (map (lambda (x) (display x) (newline)) (transpose (map expand-column (reverse matrix))))
+  (newline))
+;Value: print-matrix
 
+(print-matrix test)
+(0 0 0 0 0 1 0 0)
+(0 0 1 0 0 0 0 0)
+(0 0 0 0 0 0 1 0)
+(0 1 0 0 0 0 0 0)
+(0 0 0 1 0 0 0 0)
+(0 0 0 0 0 0 0 1)
+(1 0 0 0 0 0 0 0)
+(0 0 0 0 1 0 0 0)
 
+;Unspecified return value
 
+(map print-matrix (queens 8))
+(1 0 0 0 0 0 0 0)
+(0 0 0 0 0 0 1 0)
+(0 0 0 0 1 0 0 0)
+(0 0 0 0 0 0 0 1)
+(0 1 0 0 0 0 0 0)
+(0 0 0 1 0 0 0 0)
+(0 0 0 0 0 1 0 0)
+(0 0 1 0 0 0 0 0)
 
-
-
-
-
+....
 
