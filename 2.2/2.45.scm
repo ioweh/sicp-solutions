@@ -29,3 +29,20 @@
 
 (paint (up-split einstein 3))
 
+
+***
+
+#lang sicp
+(#%require sicp-pict)
+(define (split t1 t2)
+  (define (split-step painter n)
+    (if (= n 0)
+        painter
+        (let ((smaller (split-step painter (- n 1))))
+          (t1 painter (t2 smaller smaller)))))
+  split-step)
+(define right-split (split beside below))
+(paint (right-split einstein 3))
+(define up-split (split below beside))
+(paint (up-split einstein 3))
+
