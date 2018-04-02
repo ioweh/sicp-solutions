@@ -94,3 +94,47 @@ myframe
     (make-vect 0.999 0.144))))
 
 (paint (segments->painter wave))
+
+
+***
+
+#lang sicp
+(#%require sicp-pict)
+
+(define wave-segments
+  (list (make-segment (make-vect 0.3 0)
+                      (make-vect 0.4 0.4))
+        (make-segment (make-vect 0.4 0.4)
+                      (make-vect 0.3 0.6))
+        (make-segment (make-vect 0.3 0.6)
+                      (make-vect 0.2 0.4))
+        (make-segment (make-vect 0.2 0.4)
+                      (make-vect 0 0.6))
+        (make-segment (make-vect 0 0.7)
+                      (make-vect 0.2 0.6))
+        (make-segment (make-vect 0.2 0.6)
+                      (make-vect 0.3 0.7))
+        (make-segment (make-vect 0.3 0.7)
+                      (make-vect 0.4 0.7))
+        (make-segment (make-vect 0.4 0.7)
+                      (make-vect 0.3 0.9))
+        (make-segment (make-vect 0.3 0.9)
+                      (make-vect 0.4 0.97))
+        (make-segment (make-vect 0.5 0.97)
+                      (make-vect 0.6 0.9))
+        (make-segment (make-vect 0.6 0.9)
+                      (make-vect 0.5 0.7))
+        (make-segment (make-vect 0.5 0.7)
+                      (make-vect 0.6 0.7))
+        (make-segment (make-vect 0.6 0.7)
+                      (make-vect 0.97 0.4))
+        (make-segment (make-vect 0.97 0.3)
+                      (make-vect 0.6 0.5))
+        (make-segment (make-vect 0.6 0.5)
+                      (make-vect 0.7 0))
+        (make-segment (make-vect 0.6 0)
+                      (make-vect 0.5 0.3))
+        (make-segment (make-vect 0.5 0.3)
+                      (make-vect 0.4 0))))
+
+(paint (segments->painter wave-segments))
