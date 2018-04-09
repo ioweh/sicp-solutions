@@ -94,3 +94,31 @@
                           (myrotate90 einstein))))
 
 (paint (my-below2 einstein einstein))
+
+
+***
+
+
+#lang sicp
+(#%require sicp-pict)
+
+(define (below p1 p2)
+  (let ((split-point (make-vect 0.0 0.5)))
+    (let ((paint-top
+           ((transform-painter split-point
+                               (make-vect 1.0 0.5)
+                               (make-vect 0.0 1.0)) p1))
+          (paint-bottom
+           ((transform-painter (make-vect 0.0 0.0)
+                               (make-vect 1.0 0.0)
+                               split-point) p2)))
+      (lambda (frame)
+        (paint-top frame)
+        (paint-bottom frame)))))
+
+(paint (below einstein einstein))
+
+; let's assume the paint procedure gives a painter the required frame
+; and renders it immediately inside it
+
+; so, the painter takes a frame (which is given by paint) and draws an image
