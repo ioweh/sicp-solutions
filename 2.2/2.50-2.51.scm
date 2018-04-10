@@ -122,3 +122,13 @@
 ; and renders it immediately inside it
 
 ; so, the painter takes a frame (which is given by paint) and draws an image
+
+---
+
+(define (below p1 p2)
+  (rotate90
+   (beside
+    (rotate270 p1)
+    (rotate270 p2))))
+
+(paint (below einstein einstein))
