@@ -122,3 +122,16 @@
     (combine4 (corner-split painter n))))
 
 (paint (square-limit mypainter 5))
+
+
+***
+
+#lang sicp
+(#%require sicp-pict)
+
+(define (square-limit painter n)
+  (let ((quarter (corner-split painter n)))
+    (let ((half (beside quarter (flip-horiz quarter))))
+      (below half (flip-vert half)))))
+
+(paint (square-limit einstein 4))
