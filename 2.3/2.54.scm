@@ -38,6 +38,9 @@ We suppose that the lists to be compared both have the same length.
 (define (symbol-or-empty-list-or-number? x)
   (or (symbol? x) (eq? '() x) (number? x)))
 
+(define (symbol-or-empty-list? x)
+  (or (symbol? x) (eq? '() x)))
+
 ;(eq? '() '())
 
 ; nm, we can run eq? on empty lists, so the symbol-or-empty-list? procedure will do
@@ -55,6 +58,14 @@ We suppose that the lists to be compared both have the same length.
          true)
         (else false)))
 
+
+(define (equal? a b)
+  (cond ((and (symbol-or-empty-list? a) (symbol-or-empty-list? b))
+         (eq? a b))
+        ((and (and (non-empty-list? a) (non-empty-list? b))
+              (and (equal? (car a) (car b)) (equal? (cdr a) (cdr b))))
+         true)
+        (else (and (number? a) (number? b) (= a b)))))
 
 
 (equal? '(this is a list) '(this (is a) list))
