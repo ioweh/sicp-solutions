@@ -30,5 +30,32 @@ We suppose that the lists to be compared both have the same length.
 
 
 
+***
 
+#lang sicp
+; we already have list? and symbol? defined
+
+(define (symbol-or-empty-list-or-number? x)
+  (or (symbol? x) (eq? '() x) (number? x)))
+
+;(eq? '() '())
+
+; nm, we can run eq? on empty lists, so the symbol-or-empty-list? procedure will do
+
+; let's not forget about cases like '() and '(a b c) and introduce non-empty-list?
+
+(define (non-empty-list? x)
+  (and (list? x) (not (eq? x '()))))
+
+(define (equal? a b)
+  (cond ((and (symbol-or-empty-list-or-number? a) (symbol-or-empty-list-or-number? b))
+         (eq? a b))
+        ((and (and (non-empty-list? a) (non-empty-list? b))
+              (and (equal? (car a) (car b)) (equal? (cdr a) (cdr b))))
+         true)
+        (else false)))
+
+
+
+(equal? '(this is a list) '(this (is a) list))
 
