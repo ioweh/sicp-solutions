@@ -40,3 +40,14 @@
 (deriv '(* x y (+ x 3)) 'x)
 ;Value 16: (+ (* x y) (* y (+ x 3)))
 
+
+***
+
+(define (augend s) (if (null? (cdddr s))
+                       (caddr s)
+                       (cons '+ (list (caddr s) (augend (cdr s))))))
+
+(define (multiplicand p) (if (null? (cdddr p))
+                             (caddr p)
+                             (cons '* (list (caddr p) (multiplicand (cdr p))))))
+
