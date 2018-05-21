@@ -88,7 +88,42 @@
 
 
 
+***
 
+The previous solution is incorrect. To check it, consider the following case:
 
+(display (deriv '(x * x + 2) 'x))
 
+The answer will be simply x. To fix it, we need to consider the sum any expression that contains the "+" sign, and product - anything that is not a sum. Also, in case of the sum, both addend and augend can be lists and we need to take it into consideration. The fixed version of the solution is given below:
+
+(define (sum? x)
+  (and (pair? x) (accumulate (lambda (el acc) (if (eq? el '+) #t acc)) #f x)))
+
+(define (addend s)
+  (define (addend-as-a-list s) (if (eq? (cadr s) '+)
+                                   (list (car s))
+                                   (cons (car s) (cons '* (addend-as-a-list (cddr s))))))
+  (let ((result (addend-as-a-list s)))
+    (if (null? (cdr result))
+        (car result)
+        result)))
+
+(define (augend s)
+  (define (augend-as-a-list s) (if (eq? (cadr s) '+)
+                                   (cddr s)
+                                   (augend (cddr s))))
+  (let ((result (augend-as-a-list s)))
+    (if (and (list? result) (null? (cdr result)))
+        (car result)
+        result)))
+
+(define (product? x)
+    (not (sum? x)))
+
+(define (multiplier p) (car p))
+
+(define (multiplicand p)
+  (if (null? (cdddr p))
+      (caddr p)
+      (cddr p)))
 
