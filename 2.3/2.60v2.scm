@@ -24,7 +24,7 @@
 
 ;(element-of-set? x set) -> O(n)
 ;(adjoin-set x set) -> 0(1)
-;(union-set set1 set2) -> O(n)
+;(union-set set1 set2) -> O(n) (as it uses the append operation)
 ;(intersection-set set1 set2) -> O(n^2)
 
 ;I'd use this representation for those cases when adjoin-set and union-set are used most.
