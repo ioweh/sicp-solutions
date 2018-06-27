@@ -108,3 +108,9 @@ mytree
 ; recursive call, approximately half of the number of nodes will be in the first list argument as in the
 ; previous call. Since the number of elements is cut in half on each of the n calls to append,
 ; the tree->list-1 procedure has a complexity of O(n log n) for a balanced tree.
+
+
+***
+
+The overall height of the tree, assuming that the tree is balanced and the number of nodes is halved at each algorithm step, is log2 n. At the same time, the number of steps at each level is proportional to the number of steps of the append procedure. Considering the two nodes one level down from the top node, it's possible to estimate that the number of steps at each node is (n/2)/2, as we assume that the tree is balanced and each subtree contains half of the nodes of the upper node, noted as n here (and the append procedure runs the cons operations only on the left subtree). And, as there are two branches, the overall amount of steps is still n/2, the same with the amount of steps at the top level. The same assumptions are valid for all the following levels in the tree, and each level requires exactly n/2 steps. Thus, to estimate the order of growth of the whole procedure, we multiply n/2 by log2 n - a total number of steps, which gives O(n) = n * log n.
+
