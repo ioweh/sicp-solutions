@@ -103,3 +103,8 @@ Our list will look as follows
 ;Value 4: (5 (1 () (3 () ())) (9 (7 () ()) (11 () ())))
 
 Regarding the order of growth... My opinion is it's just O(n) as the procedure will call cons for every node of the tree.
+
+***
+
+At each step we divide the elements to be located in the left and right tree. We exclude the element that's gonna become the entry node. To get the left tree, we call the procedure partial-tree again on the same set of elements, but this time we specify the number of elements that we want to get, which we've got from dividing the total number of elements without the entry node by half. That is, the total number of nodes in the left tree is either equal to the total amount of elements in the right tree or contains one element less, as we excluded the entry node from it. Then, after we've gotten the left-tree via calling the car procedure on the left-result, we also call cdr on this, to get the non-left-elements. We then provide these elements less one element, which is the entry node, along with the right-size, to the partial-tree procedure, to get the right tree. At the very final step, we make the tree with all the results and cons that with the list of remaining elements.
+
