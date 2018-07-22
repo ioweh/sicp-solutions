@@ -63,3 +63,22 @@ sample-message
 Most likely, it has O(n*logn) time complexity, as it passes log(n) nodes, and at each node takes roughly n steps
 for the belongs? procedure.
 
+
+***
+
+(define (encode-symbol sym tree)
+  (define (in elts elt)
+    (cond ((null? elts) false)
+          ((eq? elt (car elts)) true)
+          (true (in (cdr elts) elt))))
+  (define (encode-symbol-iter sym tree)
+    (cond ((leaf? tree) '())
+          ((in (left-branch tree) sym) (cons 0 (encode-symbol-iter sym (left-branch tree))))
+          (true (cons 1 (encode-symbol-iter sym (right-branch tree))))))
+  (if (not (in (symbols tree) sym))
+      (error "the symbol is not in the tree" sym)
+      (encode-symbol-iter sym tree)))
+
+
+(display (encode '(A D A B B C A) sample-tree))
+
