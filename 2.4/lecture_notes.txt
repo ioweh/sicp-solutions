@@ -1,0 +1,11 @@
+2.4.1  Representations for Complex Numbers
+
+See the proof of Euler's formula here:
+
+https://en.wikipedia.org/wiki/Euler%27s_formula#Using_power_series
+
+It uses power-series expansion, so some addition information on Taylor series is required:
+
+https://www.mathsisfun.com/algebra/taylor-series.html
+
+

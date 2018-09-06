@@ -10,3 +10,7 @@ Not so with the worst case, when we search for the least frequent element.
 Its search will have O(n) order of growth. And determining if the element 
 belongs to the list of symbols will also have O(n) growth. So, the whole process will have 
 O(n)*O(n), which is O(n^2) order of growth.
+
+***
+
+Here, at the very first check for the most frequent symbol, we still have to check all the symbols in the left branch of the tree, even though the symbol is not there. So we have to make exactly n steps here, which is why the order of growth is O(n) in this case. Of course, this would happen only when the left branch is checked before the right branch. If we were luck enough to check the right branch first, the complexity would be O(1).
