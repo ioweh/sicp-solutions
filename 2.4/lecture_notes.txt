@@ -9,3 +9,31 @@ It uses power-series expansion, so some addition information on Taylor series is
 https://www.mathsisfun.com/algebra/taylor-series.html
 
 
+To get formulae for multiplying complex numbers in polar form, see this article:
+
+https://betterexplained.com/articles/a-visual-intuitive-guide-to-imaginary-numbers/
+
+And, especially this one:
+
+https://betterexplained.com/articles/understanding-why-complex-multiplication-works/
+
+The boring explanation shows how the multiplication is made in polar coordinates.
+
+r1(cos(a) + i sin(a)) * r2(cos(b) + i sin(b))
+
+= (r1 cos(a) * r2 cos(b) - r1 sin(a) * r2 sin(b))
++ i(r1 cos(a) * r2 sin(b) + r2 cos(b) * r1 sin(a))
+
+= r1 * r2 [(cos(a) * cos(b) - sin(a) * sin(b))
+           +i(cos(a) * sin(b) + cos(b) * sin(a))]
+
+cos(a + b) = cos(a) * cos(b) - sin(a) * sin(b)
+sin(a + b) = cos(a) * sin(b) + cos(b) * sin(a)
+
+As a result:
+
+r1 * r2 [(cos(a + b) + i sin (a + b)]
+
+rNew = r1 * r2
+aNew = a + b
+
