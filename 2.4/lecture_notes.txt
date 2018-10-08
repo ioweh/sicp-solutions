@@ -37,3 +37,13 @@ r1 * r2 [(cos(a + b) + i sin (a + b)]
 rNew = r1 * r2
 aNew = a + b
 
+
+2.4.3  Data-Directed Programming and Additivity
+
+https://stackoverflow.com/questions/5499005/how-do-i-get-the-functions-put-and-get-in-sicp-scheme-exercise-2-78-and-on
+
+(define get 2d-get)
+(define put 2d-put!)
+
+- define the get and put procedures in the way described above.
+
