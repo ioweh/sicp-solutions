@@ -1,0 +1,51 @@
+a. First of all, we need to know the division. So, the get procedure would look something like that:
+
+(put 'get-record 'division-number-one get-division-one-record)
+
+Here, the get division-one-record is a procedure taking two parameters - first, the file, and second, the employee. We can implement it with lambdas.
+
+Then we can use it like that:
+
+((get 'get-record 'division-number-one) some-file-to-apply-the-proc-to)
+
+It itself will return a procedure that takes an employee and returns a record for him.
+
+The type information needs to be supplied in the division file. The file can be structured in the following way:
+
+(cons file-division file-body)
+
+Then we can implement the procedure to get the division of the file in the following way:
+
+(define (get-division file) (car file))
+
+And the file body:
+
+(define (get-body file) (cdr file))
+
+Then we can implement the procedure to retrieve a specified record from the file.
+
+(define (get-record file employee)
+  (((get 'get-record (get-division file)) (get-body file)) employee))
+
+b. Similarly,
+
+(put 'get-salary 'division-number-one get-division-number-one-salary)
+
+Where the get-division-number-one-salary procedure can take an employee (which is a record) as an argument, for example.
+
+(define (get-salary file employee)
+  ((get 'get-salary (get-division file)) (get-record file employee)))
+
+c.
+
+(define (find-employee-record employee division-files)
+  (map (lambda (file) (get-record file employee)) division-files))
+
+Assuming that the get-record procedure returns an empty list if no record was found, we will finally get a list like that, for example:
+
+[(), (), employee-record, ()]
+
+This list will be easy to filter.
+
+d. Just add a new type based on the new division and use the put procedure to insert it into the table.
+
