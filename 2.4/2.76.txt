@@ -1,0 +1,42 @@
+
+Generic operations with explicit dispatch
+
+Adding new types: we need to modify each cond expression to add a new type there. This means modifying all the operations that were previously added.
+
+Adding new operations: we need to add one more operation and then write a cond expression to handle each existing type.
+
+
+Data-directed style
+
+Adding new types: we just need to use the put procedure to add a new operation. But we also need to write a new package to install the new type.
+
+Adding new operations: we just need to use the put procedure to add a new type. And apply it in every package for each type that we already added.
+
+
+Message-passing style
+
+Adding new types: we need to add a new procedure to construct an object corresponding to the new type.
+
+Adding new operations: we need to add new operation to each object.
+
+
+It seems like the data-directed style is the most appropriate for both kinds of systems: where new types and new operations are often added, as we just need to put new procedures to the dispatch table.
+
+
+Update: We still need to write new packages to add new types and operations using the data-directed style. Let's have a deeper look at other options again.
+
+
+When adding a new type to the generic operations that use explicit dispatch, we need to modify (recompile?) each operation. So, it's not the best strategy for adding new types.
+
+Whilst adding new operations sounds like an option. We'll just need to take all the types into account. But adding a new operation doesn't imply modifying all the other operations that were defined before.
+
+Now, in stark contrast, comes the message passing strategy. When adding a new type, we don't have to change all the other operations in the system. So, this strategy is the best fit for a system where new types get added often.
+
+But when we add a new operation to this system, we need to change all the previously constructed types and add that operation there (which, likely, in turn, means recompilation of all of them). So, this strategy will suck for adding new operations.
+
+When using the data-directed style, we'll need to write a new package to add a new type to the system. But this doesn't imply editing all the other operations declared previously for other types. So, this strategy also fits the systems where adding new types happens very often, along with the message passing strategy.
+
+Whereas adding a new operation implies changing already installed packages and reinstalling them again. This is probably not the best strategy for the cases when new operations need to be added often.
+
+
+
