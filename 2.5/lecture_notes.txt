@@ -1,0 +1,28 @@
+2.5.1  Generic Arithmetic Operations
+
+We will need to replace the get and put functions that were defined before
+
+(define get 2d-get)
+(define put 2d-put!)
+
+with the following ones:
+
+(define *op-table* (make-hash-table))
+
+(define (put op type proc)
+  (hash-table/put! *op-table* (list op type) proc))
+
+(define (get op type)
+  (hash-table/get *op-table* (list op type) #f))
+
+It is done because we get an error when we try to evaluate an expression like this:
+
+(get 'magnitude '(complex))
+
+Whereas the following one would be evaluated just fine with the old get and put procedures:
+
+(get 'magnitude 'complex)
+
+The old implementations would complain when providing list arguments to them.
+
+

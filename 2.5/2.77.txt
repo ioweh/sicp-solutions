@@ -1,0 +1,27 @@
+
+Let's have a look at what happens when we evaluate the expression (magnitude z). We already defined the operation magnitude like that:
+
+(define (magnitude z) (apply-generic 'magnitude z))
+
+Inside the apply-generic procedure, we strip off the tag from the argument, which is a complex number and run the following code to get the appropriate operation:
+
+(get magnitude '(complex))
+
+But we indeed cannot get the procedure because we didn't put it there before. To fix it, we need to add the following code, just as Alice recommends:
+
+(put 'magnitude '(complex) magnitude)
+
+Then the procedure, written above, will execute and apply the 'magnitude' procedure to the contents of the complex number, which is represented in the rectangular form.
+
+(magnitude (cons 'rectangular (cons 3 4)))
+
+This in turn calls the apply-generic procedure. But this time it returns the following:
+
+((get 'magnitude '(rectangular)) (cons 3 4))
+
+
+As we can see the apply-generic procedure is invoked two times. In the first case, when the complex tag is stripped, it is dispatched again to the magnitude procedure, but with the rectangular number as its parameter this time. And in the second case it goes straight to the implementation of magnitude for a rectangular number with nothing but a pair (cons 3 4) as the parameter.
+
+
+
+
