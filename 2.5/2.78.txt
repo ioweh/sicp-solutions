@@ -1,0 +1,35 @@
+
+All we need to do is to modify the procedures in the following way:
+
+
+(define (attach-tag type-tag contents)
+  (cond ((number? contents) contents)
+	(true (cons type-tag contents))))
+;Value: attach-tag
+
+(attach-tag 'scheme-number 3)
+;Value: 3
+
+
+(define (type-tag datum)
+  (cond ((pair? datum) (car datum))
+	((number? datum) 'scheme-number)
+	(true (error "Bad tagged datum -- TYPE-TAG" datum))))
+;Value: type-tag
+
+(type-tag 3)
+;Value: scheme-number
+
+
+(define (contents datum)
+  (cond ((pair? datum) (cdr datum))
+	((number? datum) datum)
+	(true (error "Bad tagged datum -- CONTENTS" datum))))
+;Value: contents
+
+(contents 3)
+;Value: 3
+
+
+Check the apply-generic procedure to see how it works.
+
