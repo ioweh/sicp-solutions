@@ -204,3 +204,25 @@ We can test the new predicate with the following functions:
 (equ? (make-scheme-number 5) (make-scheme-number 7))
 ;Value: #f
 
+
+Addition.
+
+To further simplify the definition of the rational number package, we can just exploit the equal-rat? procedure from the code in the earlier chapters:
+
+(define (equal-rat? x y)
+  (= (* (numer x) (denom y))
+     (* (numer y) (denom x))))
+
+Then we update the package like this:
+
+(put 'equ? '(rational rational) equal-rat?)
+
+
+Also, complex numbers are equal if their real parts are equal and their imaginary parts are equal. Taking this into account, we can redefine the equality procedure for complex numbers like this:
+
+(define (equ-complex? z1 z2)
+  (and (= (real-part z1) (real-part z2))
+       (= (imag-part z1) (imag-part z2))))
+...
+(put 'equ? '(complex complex) equ-complex?)
+
