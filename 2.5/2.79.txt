@@ -226,3 +226,8 @@ Also, complex numbers are equal if their real parts are equal and their imaginar
 ...
 (put 'equ? '(complex complex) equ-complex?)
 
+
+Note that we cannot use 'eq?' in place of '=' in the comparison in the equ-complex? procedure. This is because eq? is #t when it is the same address/object. See this SO question for clarifications:
+
+https://stackoverflow.com/questions/16299246/what-is-the-difference-between-eq-eqv-equal-and-in-scheme
+
