@@ -1,0 +1,77 @@
+
+We need to update the packages in the following way:
+
+
+First of all, we need to define a common predicate to test if the argument is zero:
+
+(define (=zero? x) (apply-generic '=zero? x))
+;Value: =zero?
+
+
+Then we update the numbers package:
+
+(define (install-scheme-number-package)
+  ...
+  (put '=zero? '(scheme-number)
+       (lambda (x) (= x 0)))
+  'done)
+;Value: install-scheme-number-package
+
+
+The rational numbers package:
+
+
+(define (install-rational-package)
+  ...
+  (define (=zero? x) (= (numer x) 0))
+  ...
+  (put '=zero? '(rational) =zero?)
+  ...
+  'done)
+;Value: install-rational-package
+
+
+The package for complex numbers:
+
+
+(define (install-complex-package)
+  ...
+  (define (=zero? z)
+    (and (= (real-part z) 0)
+	 (= (imag-part z) 0)))
+  ...
+  (put '=zero? '(complex) =zero?)
+  'done)
+;Value: install-complex-package
+
+
+We can test that it works correctly like this:
+
+
+(=zero? (make-scheme-number 3))
+;Value: #f
+
+(=zero? (make-scheme-number 0))
+;Value: #t
+
+
+(=zero? (make-rational 5 6))
+;Value: #f
+
+(=zero? (make-rational 0 6))
+;Value: #t
+
+
+(=zero? (make-complex-from-real-imag 5 4))
+;Value: #f
+
+(=zero? (make-complex-from-real-imag 0 0))
+;Value: #t
+
+(=zero? (make-complex-from-mag-ang 5 4))
+;Value: #f
+
+(=zero? (make-complex-from-mag-ang 0 0))
+;Value: #t
+
+
