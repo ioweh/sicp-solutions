@@ -75,3 +75,9 @@ We can test that it works correctly like this:
 ;Value: #t
 
 
+Note: we can update the code for the numbers package to look like that, for consistency:
+
+(define (=zero? x) (= x 0)) 
+...
+(put '=zero? '(scheme-number) =zero?)
+
