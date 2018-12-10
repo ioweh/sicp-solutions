@@ -1,0 +1,14 @@
+
+a. The apply-generic procedure will execute recursively, as it will find the coercion and execute the apply-generic procedure over and over again with the very same arguments that were called the first time the procedure was executed.
+
+b. We can not call the code further down after the check for the procedure to save some time.
+
+c. For that, we just need to add a small check if the arguments are of the same type and report an error that there is no method for these types. We can do it like that:
+
+
+(define (apply-generic op . args)
+...
+(if (and (= (length args) 2) (not (equal? (car type-tags) (cadr type-tags))))
+...
+
+Here, we just modified the check in the apply-generic procedure so that it filters numbers of the same type.
