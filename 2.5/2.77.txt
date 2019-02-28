@@ -5,7 +5,7 @@ Let's have a look at what happens when we evaluate the expression (magnitude z).
 
 Inside the apply-generic procedure, we strip off the tag from the argument, which is a complex number and run the following code to get the appropriate operation:
 
-(get magnitude '(complex))
+(get 'magnitude '(complex))
 
 But we indeed cannot get the procedure because we didn't put it there before. To fix it, we need to add the following code, just as Alice recommends:
 
