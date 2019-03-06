@@ -33,3 +33,26 @@ All we need to do is to modify the procedures in the following way:
 
 Check the apply-generic procedure to see how it works.
 
+
+Note: after the changes, we can rewrite the install-scheme-number-package procedure in the following, shorter way:
+
+(define (install-scheme-number-package)
+  (define (tag x)
+    (attach-tag 'scheme-number x))
+  (put 'add '(scheme-number scheme-number) +)
+  (put 'sub '(scheme-number scheme-number) -)
+  (put 'mul '(scheme-number scheme-number) *)
+  (put 'div '(scheme-number scheme-number) /)
+  (put 'make 'scheme-number
+       (lambda (x) (tag x)))
+  'done)
+;Value: install-scheme-number-package
+
+(install-scheme-number-package)
+;Value: done
+
+And then test it like here:
+
+(add 1 (add (make-scheme-number 3) (make-scheme-number 4)))
+;Value: 8
+
