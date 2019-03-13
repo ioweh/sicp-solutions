@@ -26,3 +26,16 @@ Whereas the following one would be evaluated just fine with the old get and put 
 The old implementations would complain when providing list arguments to them.
 
 
+Note that the put-coercion and get-coercion procedures are similar to put and get:
+
+(define *coercion-table* (make-equal-hash-table)) 
+
+(define (put-coercion type1 type2 proc) 
+  (hash-table/put! *coercion-table* (list type1 type2) proc)) 
+  
+(define (get-coercion type1 type2) 
+  (hash-table/get *coercion-table* (list type1 type2) '())) 
+
+(taken from http://community.schemewiki.org/?sicp-ex-2.82).
+
+
