@@ -1,0 +1,73 @@
+
+(define (accumulate1 op seq)
+  (if (equal? (length seq) 1)
+      (car seq)
+      (op (car seq)
+	  (accumulate1 op (cdr seq)))))
+;Value: accumulate1
+
+
+(define (coerce-to-same-type . args)
+  (define (coerce-all-types-to-one tried-type args)
+    (accumulate (lambda (arg acc)
+		  (cond ((and (not (equal? acc (list 'none))) (equal? (type-tag arg) tried-type)) (cons arg acc))
+			((or (equal? (length acc) 0) (not (equal? (car acc) 'none)))
+			 (let ((coerce (get-coercion (type-tag arg) tried-type)))
+			   (if (not (null? coerce))
+			       (cons (coerce (contents arg)) acc)
+			       (list 'none))))
+			(else (list 'none)))) () args))
+  (accumulate (lambda (arg acc)
+		(if (and (not (equal? (length acc) 0)) (not (equal? acc (list 'none))))
+		    acc
+		    (coerce-all-types-to-one (type-tag arg) args)))
+	      ()
+	      args))
+;Value: coerce-to-same-type
+
+
+(define (apply-generic op . args)
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+	  (apply proc (map contents args))
+	  (accumulate1 op (apply coerce-to-same-type args))))))
+;Value: apply-generic
+
+
+
+
+(define rational-num (make-rational 2 3))
+;Value: rational-num
+
+(define complex-num (make-complex-from-real-imag 3 4))
+;Value: complex-num
+
+(define scheme-num (make-scheme-number 5))
+;Value: scheme-num
+
+
+(coerce-to-same-type rational-num complex-num)
+;Value 72: (none)
+
+
+(coerce-to-same-type scheme-num complex-num)
+;Value 73: ((complex rectangular 5 . 0) (complex rectangular 3 . 4))
+
+
+(coerce-to-same-type complex-num scheme-num)
+;Value 74: ((complex rectangular 3 . 4) (complex rectangular 5 . 0))
+
+
+
+It looks like there can be an operation that will be defined like this, for example:
+
+(op rational-num complex-num)
+
+And when we call such an operation on these data:
+
+(op scheme-num complex-num)
+
+Both of the operands will be coerced to the complex type, for which there's no procedure.
+
+
