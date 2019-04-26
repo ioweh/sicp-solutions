@@ -15,3 +15,6 @@ Then copy it: [Meta-W]
 To paste back from Windows: [Ctrl-Y]
 
 Note that the mit-scheme-9.0.1 doesn't open the files correctly. The version 9.0 works just fine.
+
+
+Undo in Emacs: C-x u
