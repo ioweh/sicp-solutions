@@ -1,0 +1,77 @@
+
+(define *raise-table* (make-equal-hash-table))
+;Value: *raise-table*
+
+(define (put-raise type proc)
+  (hash-table/put! *raise-table* (list type) proc))
+;Value: put-raise
+
+(define (get-raise type)
+  (hash-table/get *raise-table* (list type) '()))
+;Value: get-raise
+
+(define (raise-integer-to-rational num)
+  (make-rational num 1))
+;Value: raise-integer-to-rational
+
+(put-raise 'scheme-number raise-integer-to-rational)
+;Unspecified return value
+
+(define (raise-rational-to-real num)
+  (make-scheme-real-number (* 1.0 (/ (car num) (cdr num)))))
+;Value: raise-rational-to-real
+
+
+(put-raise 'rational raise-rational-to-real)
+;Unspecified return value
+
+
+(define (raise-real-to-complex num)
+  (make-complex-from-real-imag num 0))
+;Value: raise-real-to-complex
+
+(put-raise 'real-scheme-number raise-real-to-complex)
+;Unspecified return value
+
+
+(define (raise-generic arg)
+  (let ((type (type-tag arg)))
+    (let ((proc (get-raise type)))
+      (if proc
+	  (proc (contents arg))
+	  (error "No raise for you!")))))
+;Value: raise-generic
+
+(raise-generic (raise-generic (raise-generic scheme-num)))
+;Value 29: (complex rectangular 5. . 0)
+
+
+(define (install-scheme-real-number-package)
+  (define (tag x)
+    (attach-tag 'real-scheme-number x))
+  (put 'add '(real-scheme-number real-scheme-number)
+       (lambda (x y) (tag (+ x y))))
+  (put 'sub '(real-scheme-number real-scheme-number)
+       (lambda (x y) (tag (- x y))))
+  (put 'mul '(real-scheme-number real-scheme-number)
+       (lambda (x y) (tag (* x y))))
+  (put 'div '(real-scheme-number real-scheme-number)
+       (lambda (x y) (tag (/ x y))))
+  (put 'make 'real-scheme-number
+       (lambda (x) (tag x)))
+  'done)
+;Value: install-scheme-real-number-package
+
+(install-scheme-real-number-package)
+;Value: done
+
+(define (make-scheme-real-number n)
+  ((get 'make 'real-scheme-number) n))
+;Value: make-scheme-real-number
+
+
+(define (attach-tag type-tag contents)
+  (cond ((equal? type-tag 'real-scheme-number) (cons type-tag contents))
+	((number? contents) contents)
+	(true (cons type-tag contents))))
+;Value: attach-tag
