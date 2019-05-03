@@ -75,3 +75,55 @@
 	((number? contents) contents)
 	(true (cons type-tag contents))))
 ;Value: attach-tag
+
+***
+
+Or, we can take an easier approach:
+
+(define (install-scheme-real-number-package)
+  (define (tag x)
+    (attach-tag 'real-scheme-number x))
+  (put 'add '(real-scheme-number real-scheme-number)
+       (lambda (x y) (tag (+ x y))))
+  (put 'sub '(real-scheme-number real-scheme-number)
+       (lambda (x y) (tag (- x y))))
+  (put 'mul '(real-scheme-number real-scheme-number)
+       (lambda (x y) (tag (* x y))))
+  (put 'div '(real-scheme-number real-scheme-number)
+       (lambda (x y) (tag (/ x y))))
+  (put 'make 'real-scheme-number
+       (lambda (x) (tag x)))
+  'done)
+;Value: install-scheme-real-number-package
+
+(install-scheme-real-number-package)
+;Value: done
+
+(define (make-scheme-real-number n)
+  ((get 'make 'real-scheme-number) n))
+;Value: make-scheme-real-number
+
+
+(define (raise x) (apply-generic 'raise x))
+
+(define (raise-integer-to-rational num)
+  (make-rational num 1))
+;Value: raise-integer-to-rational
+
+(put 'raise '(scheme-number) raise-integer-to-rational)
+
+
+(define (raise-rational-to-real num)
+  (make-scheme-real-number (* 1.0 (/ (car num) (cdr num)))))
+;Value: raise-rational-to-real
+
+(put 'raise '(rational) raise-rational-to-real)
+
+
+(define (raise-real-to-complex num)
+  (make-complex-from-real-imag num 0))
+;Value: raise-real-to-complex
+
+(put 'raise '(real-scheme-number) raise-real-to-complex)
+
+
