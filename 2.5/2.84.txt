@@ -1,0 +1,261 @@
+
+We need to read this text carefully:
+
+"If we have a tower structure, then we can greatly simplify the problem of adding a new type to the hierarchy, for we need only specify how the new type is embedded in the next supertype above it and how it is the supertype of the type below it. For example, if we want to add an integer to a complex number, we need not explicitly define a special coercion procedure integer->complex. Instead, we define how an integer can be transformed into a rational number, how a rational number is transformed into a real number, and how a real number is transformed into a complex number. We then allow the system to transform the integer into a complex number through these steps and then add the two complex numbers."
+
+
+So, let's assume we don't have special coercion procedures. How else then do we define which of two types is higher in the hierarchy?
+
+There is no way to test which of the types is higher in the hierarchy, as long as we don't modify the procedures installing the types into the hierarchy.
+
+The only thing we can do is to keep raising the first type until we either encounter the second type or hit the end of the hierarchy. If that doesn't work, we do the very same operation with the other type. But therefore we don't need to implement the procedure testing which of two types is higher, as we can coerce them immediately without using it.
+
+
+(define (coerce t1 t2)
+
+
+Anyway, let's maintain the list of types, from smallest to the largest. Then, each time we need to determine which type is higher in the hierarchy, we can refer to that list. We need to be able to insert elements at a specific list position, before some element in the list, as we always coerce elements to the larger ones in the hierarchy.
+
+
+Say, we have the following list:
+
+(list 'scheme-number)
+
+And we're adding a coercion procedure, from scheme-number to rational-num.
+
+(put-raise 'scheme-number raise-integer-to-rational)
+
+; lets maintain some hierarchy in a variable
+
+
+
+The full solution is here:
+
+(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\generic-arithmetic-operations.scm")
+;Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\generic-arithmetic-operations.scm"... done
+;Value: =zero?
+
+(define *coercion-table* (make-equal-hash-table))
+;Value: *coercion-table*
+
+(define (put-coercion type1 type2 proc)
+  (hash-table/put! *coercion-table* (list type1 type2) proc))
+;Value: put-coercion
+
+(define (get-coercion type1 type2)
+  (hash-table/get *coercion-table* (list type1 type2) '()))
+;Value: get-coercion
+
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+	  (accumulate op initial (cdr sequence)))))
+;Value: accumulate
+
+(define (accumulate1 op seq)
+  (if (null? seq)
+      '()
+      (accumulate op (car (reverse seq)) (reverse (cdr (reverse seq))))))
+;Value: accumulate1
+
+(define (attach-tag type-tag contents)
+  (cond ((equal? type-tag 'real) (cons type-tag contents))
+	((number? contents) contents)
+	(else (cons type-tag contents))))
+;Value: attach-tag
+
+(define (install-real-package)
+  (define (tag x)
+    (attach-tag 'real x))
+  (put 'add '(real real) +)
+  (put 'sub '(real real) -)
+  (put 'mul '(real real) *)
+  (put 'div '(real real) /)
+  (put 'make 'real-scheme-number
+       (lambda (x) (tag x)))
+  'done)
+;Value: install-real-package
+
+(install-real-package)
+;Value: done
+
+(define (make-scheme-real-number n)
+  ((get 'make 'real-scheme-number) n))
+;Value: make-scheme-real-number
+
+(define (raise x) (apply-generic 'raise x))
+;Value: raise
+
+(define (integer->rational n)
+  (make-rational n 1))
+;Value: integer->rational
+
+(put 'raise '(scheme-number) integer->rational)
+;Unspecified return value
+
+(raise 5)
+;Value 12: (rational 5 . 1)
+
+(define (rational->real r)
+  (make-scheme-real-number (/ (car r) (cdr r))))
+;Value: rational->real
+
+(put 'raise '(rational) rational->real)
+;Unspecified return value
+
+(raise (raise 5))
+;Value 13: (real . 5)
+
+(define (real->complex x)
+  (make-complex-from-real-imag x 0))
+;Value: real->complex
+
+(put 'raise '(real) real->complex)
+;Unspecified return value
+
+(raise (raise (raise 5)))
+;Value 14: (complex rectangular 5 . 0)
+
+(define (install-into-hierarchy installed-type lower-type hierarchy)
+  (if (eq? (car hierarchy) lower-type)
+      (cons lower-type (cons installed-type (cdr hierarchy)))
+      (cons (car hierarchy) (install-into-hierarchy installed-type lower-type (cdr hierarchy)))))
+;Value: install-into-hierarchy
+
+(define h2 (install-into-hierarchy 'complex 'rational (list 'scheme-number 'rational)))
+;Value: h2
+
+h2
+;Value 15: (scheme-number rational complex)
+
+(define h3 (install-into-hierarchy 'real 'rational h2))
+;Value: h3
+
+h3
+;Value 16: (scheme-number rational real complex)
+
+(define (dropUntil pred list)
+  (cond ((null? list) list)
+	((pred (car list)) list)
+	(else (dropUntil pred (cdr list)))))
+;Value: dropuntil
+
+(define (belongs el list)
+  (cond ((null? list) #f)
+	((eq? el (car list)) #t)
+	(else (belongs el (cdr list)))))
+;Value: belongs
+
+(belongs 2 '(1 2 3 4))
+;Value: #t
+
+(belongs 5 '(1 2 3 4))
+;Value: #f
+
+(dropUntil (lambda (x) (eq? x 2)) '(1 2 3 4))
+;Value 17: (2 3 4)
+
+(define (higher t1 t2 hierarchy)
+  (if (belongs t2 (dropuntil (lambda (el) (eq? el t1)) hierarchy))
+      #f
+      #t))
+;Value: higher
+
+(higher 'scheme-number 'rational h3)
+;Value: #f
+
+h3
+;Value 16: (scheme-number rational real complex)
+
+(higher 'real 'rational h3)
+;Value: #t
+
+(define (raise-to-higher lower-val higher-type)
+  (if (eq? (type-tag lower-val) higher-type)
+      lower-val
+      (raise-to-higher (raise lower-val) higher-type)))
+;Value: raise-to-higher
+
+(raise-to-higher 5 'complex)
+;Value 18: (complex rectangular 5 . 0)
+
+; first we determine what is the highest type in the hierarchy and then coerce all the types to it
+
+; we'll use accumulate for determining
+
+
+(define (get-highest-type arguments)
+  (accumulate1 (lambda (x acc) (if (higher x acc h3) x acc)) arguments))
+;Value: get-highest-type
+
+(get-highest-type '(scheme-number scheme-number rational scheme-number))
+;Value: rational
+
+; then we just map
+
+(define (coerce-to-highest-type . args)
+  (let ((highest-type (get-highest-type (map type-tag args))))
+    (map (lambda (arg) (raise-to-higher arg highest-type)) args)))
+;Value: coerce-to-highest-type
+
+(define integer
+  (make-scheme-number 5))
+;Value: integer
+
+(define rational
+  (make-rational 3 4))
+;Value: rational
+
+(define real
+  (make-scheme-real-number 7))
+;Value: real
+
+(define complex
+  (make-complex-from-real-imag 1 2))
+;Value: complex
+
+(coerce-to-highest-type 5 rational complex 3)
+;Value 19: ((complex rectangular 5 . 0) (complex rectangular 3/4 . 0) (complex rectangular 1 . 2) (complex rectangular 3 . 0))
+
+(apply coerce-to-highest-type (list complex rational))
+;Value 20: ((complex rectangular 1 . 2) (complex rectangular 3/4 . 0))
+
+(accumulate1 add (apply coerce-to-highest-type (list complex rational)))
+;Value 25: (complex rectangular 7/4 . 2)
+
+add
+;Value 22: #[compound-procedure 22 add]
+
+
+(define (apply-generic op . args)
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+	  (apply proc (map contents args))
+	  (let ((highest-type (get-highest-type args))
+		(raised-proc (get op (list (type-tag (get-highest-type args)) (type-tag (get-highest-type args))))))
+	    (accumulate1 raised-proc (apply coerce-to-highest-type args)))))))
+;Value: apply-generic
+
+
+(add complex complex)
+;Value 37: (complex rectangular 2 . 4)
+
+(add complex rational)
+;Value 38: (complex rectangular 7/4 . 2)
+
+
+
+http://community.schemewiki.org/?sicp-ex-2.84
+
+https://jots-jottings.blogspot.com/2012/03/sicp-exercise-284-successive-raising.html
+
+
+https://stackoverflow.com/questions/15003518/confused-by-the-difference-between-let-and-let-in-scheme
+
+If you use let, you can't reference other bindings which appear in the same let expression. 
+
+But if you use let*, it is possible to refer to previous bindings which appear in the same let* expression.
+
+
