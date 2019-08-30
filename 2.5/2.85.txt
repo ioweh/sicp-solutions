@@ -1,0 +1,122 @@
+
+As can be seen from the example (1.5 + 0i), we clearly omit the rational numbers in the hierarchy, as the real number 1.5 is 3/2 when coerced to rational. Though, we can easily implement a conversion from the real to the rational number, as we need to only multiply the real number by some value so that it represented the whole number and then find the greatest common divisor of that number and the value by which the real nubmer was multiplied. Once done, both numbers can be deleted by the greatest common divisor and the rational number can be found.
+
+
+https://stackoverflow.com/questions/15807247/how-to-take-apart-numbers-into-integer-fractional-part-in-scheme
+
+https://stackoverflow.com/questions/4539225/how-does-the-scheme-function-inexact-exact-operate
+
+https://www.gnu.org/software/mit-scheme/documentation/mit-scheme-ref/Numerical-operations.html
+
+
+
+
+(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\2.84.txt")
+;Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\2.84.txt"...
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\generic-arithmetic-operations.scm"... done
+;... done
+;Value 11: (complex rectangular 7/4 . 2)
+
+(define (project x) (apply-generic 'project x))
+;Value: project
+
+(put 'project '(complex) (lambda (x) (make-scheme-real-number (real-part x))))
+;Unspecified return value
+
+(project complex)
+;Value 14: (real . 1)
+
+
+(define (fractional? x)
+  (not (= (floor x) x)))
+;Value: fractional?
+
+(define (make-rational-from-real x)
+  (define (make-rational-from-real-iter num denom)
+    (if (fractional? num)
+	(make-rational-from-real-iter (* 10 num) (* 10 denom))
+	(make-rational num denom)))
+  (make-rational-from-real-iter x 1))
+;Value: make-rational-from-real
+
+(put 'project '(real) (lambda (x) (make-rational-from-real x)))
+;Unspecified return value
+
+real
+;Value 16: (real . 7)
+
+(project real)
+;Value 17: (rational 7 . 1)
+
+(put 'project '(rational) (lambda (r) (car r)))
+;Unspecified return value
+
+(project rational)
+;Value: 3
+
+(define (lowest-type? x)
+  (eq? (type-tag x) 'scheme-number))
+;Value: lowest-type?
+
+(define (drop x)
+  (let ((dropped (project x)))
+    (if (or (lowest-type? x) (not (equ? (raise dropped) x)))
+	x
+	(drop dropped))))
+;Value: drop
+
+
+(put 'equ? '(real real) (lambda (x y) (= (contents x) (contents y))))
+;Unspecified return value
+
+(drop complex)
+;Value 13: (complex rectangular 1 . 2)
+
+(drop rational)
+;Value 18: (rational 3 . 4)
+
+(drop real)
+;Value: 7
+
+(equ? real real)
+;Value: #t
+
+
+(define (apply-generic op . args)
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (let ((result (if proc
+			(apply proc (map contents args))
+			(let ((highest-type (get-highest-type args))
+			      (raised-proc (get op (list (type-tag (get-highest-type args)) (type-tag (get-highest-type args))))))
+			  (accumulate1 raised-proc (apply coerce-to-highest-type args))))))
+	(if (or (eq? op 'drop) (eq? op 'project) (eq? op 'equ?) (eq? op 'raise))
+	    result
+	    (drop result))))))
+;Value: apply-generic
+
+
+(add complex complex)
+;Value 21: (complex rectangular 2 . 4)
+
+
+(drop complex)
+;Value 13: (complex rectangular 1 . 2)
+
+
+
+
+(project complex)
+;Value 20: (real . 1)
+
+
+(equ? complex complex)
+;Value: #t
+
+real
+;Value 16: (real . 7)
+
+(drop real)
+;Value: 7
+
+
