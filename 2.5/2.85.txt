@@ -48,11 +48,11 @@ real
 (project real)
 ;Value 17: (rational 7 . 1)
 
-(put 'project '(rational) (lambda (r) (car r)))
+(put 'project '(rational) (lambda (r) (round (/ (car r) (cdr r)))))
 ;Unspecified return value
 
 (project rational)
-;Value: 3
+;Value: 1
 
 (define (lowest-type? x)
   (eq? (type-tag x) 'scheme-number))
