@@ -1,12 +1,12 @@
 
-As can be seen from the example (1.5 + 0i), we clearly omit the rational numbers in the hierarchy, as the real number 1.5 is 3/2 when coerced to rational. Though, we can easily implement a conversion from the real to the rational number, as we need to only multiply the real number by some value so that it represented the whole number and then find the greatest common divisor of that number and the value by which the real nubmer was multiplied. Once done, both numbers can be deleted by the greatest common divisor and the rational number can be found.
+;As can be seen from the example (1.5 + 0i), we clearly omit the rational numbers in the hierarchy, as the real number 1.5 is 3/2 when coerced to ;rational. Though, we can easily implement a conversion from the real to the rational number, as we need to only multiply the real number by some value ;so that it represented the whole number and then find the greatest common divisor of that number and the value by which the real nubmer was multiplied. ;Once done, both numbers can be deleted by the greatest common divisor and the rational number can be found.
 
 
-https://stackoverflow.com/questions/15807247/how-to-take-apart-numbers-into-integer-fractional-part-in-scheme
+;https://stackoverflow.com/questions/15807247/how-to-take-apart-numbers-into-integer-fractional-part-in-scheme
 
-https://stackoverflow.com/questions/4539225/how-does-the-scheme-function-inexact-exact-operate
+;https://stackoverflow.com/questions/4539225/how-does-the-scheme-function-inexact-exact-operate
 
-https://www.gnu.org/software/mit-scheme/documentation/mit-scheme-ref/Numerical-operations.html
+;https://www.gnu.org/software/mit-scheme/documentation/mit-scheme-ref/Numerical-operations.html
 
 
 
@@ -87,8 +87,8 @@ real
     (let ((proc (get op type-tags)))
       (let ((result (if proc
 			(apply proc (map contents args))
-			(let ((highest-type (get-highest-type args))
-			      (raised-proc (get op (list (type-tag (get-highest-type args)) (type-tag (get-highest-type args))))))
+			(let* ((highest-type (get-highest-type type-tags))
+			      (raised-proc (get op (list highest-type highest-type))))
 			  (accumulate1 raised-proc (apply coerce-to-highest-type args))))))
 	(if (or (eq? op 'drop) (eq? op 'project) (eq? op 'equ?) (eq? op 'raise))
 	    result

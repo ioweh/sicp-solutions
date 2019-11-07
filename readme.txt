@@ -18,3 +18,11 @@ Note that the mit-scheme-9.0.1 doesn't open the files correctly. The version 9.0
 
 
 Undo in Emacs: C-x u
+
+
+Find file: C-x C-f 
+
+https://courses.cs.washington.edu/courses/cse341/common/help/mit-scheme.html
+
+
+

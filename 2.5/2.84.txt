@@ -233,7 +233,7 @@ add
     (let ((proc (get op type-tags)))
       (if proc
 	  (apply proc (map contents args))
-	  (let ((highest-type (get-highest-type args))
+	  (let ((highest-type (get-highest-type type-tags))
 		(raised-proc (get op (list (type-tag (get-highest-type args)) (type-tag (get-highest-type args))))))
 	    (accumulate1 raised-proc (apply coerce-to-highest-type args)))))))
 ;Value: apply-generic

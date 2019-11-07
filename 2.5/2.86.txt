@@ -1,0 +1,44 @@
+
+(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\generic-arithmetic-operations.scm")
+;    Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\generic-arithmetic-operations.scm"... 
+;      Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\integer-package.scm"... done
+;      Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\real-package.scm"... done
+;      Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\rational-package.scm"... done
+;      Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\rectangular-package.scm"... done
+;      Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\polar-package.scm"... done
+;      Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\complex-package.scm"... done
+;    ... done
+;Value: atan
+
+
+(define c1 (make-complex-from-mag-ang (make-real 3) (make-real 4)))
+;Value: c1
+
+(define c2 (make-complex-from-mag-ang (make-real 7) (make-real 9)))
+;Value: c2
+
+
+(add c1 c2)
+;Value 64: (complex rectangular -8.338842695783574 . .6144219107685118)
+
+
+(define c3 (make-complex-from-real-imag (make-real 8) (make-real 3)))
+;Value: c3
+
+(define c4 (make-complex-from-real-imag (make-real 4) (make-real 6)))
+;Value: c4
+
+
+(add c3 c4)
+;Value 66: (complex rectangular 12 . 9)
+
+(add c1 c3)
+;Value 67: (complex rectangular 6.0390691374091645 . .7295925140762156)
+
+
+
+To get the sine of a complex number, we need to use Euler's identity, as described here:
+
+https://www.quora.com/Can-you-get-the-sine-of-a-complex-number
+
+
