@@ -39,3 +39,12 @@ Note that the put-coercion and get-coercion procedures are similar to put and ge
 (taken from http://community.schemewiki.org/?sicp-ex-2.82).
 
 
+2.5.3  Example: Symbolic Algebra
+
+https://www.varsitytutors.com/precalculus-help/express-a-polynomial-as-a-product-of-linear-factors
+
+search: polynomial as a product of factors
+
+
+https://en.wikipedia.org/wiki/Rational_root_theorem
+

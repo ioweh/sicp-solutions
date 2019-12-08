@@ -5,6 +5,7 @@
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\rectangular-package.scm")
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\polar-package.scm")
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\complex-package.scm")
+(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\polynomial-package.scm")
 
 (define (attach-tag type-tag contents)
   (cond ((equal? type-tag 'real) (cons type-tag contents))
@@ -51,6 +52,8 @@
 (install-rational-package)
 
 (install-complex-package)
+
+(install-polynomial-package)
 
 (define (make-scheme-real-number n)
   ((get 'make 'real-scheme-number) n))
@@ -247,5 +250,11 @@
 
 (define (atan x) (apply-generic 'atan x))
 ;Value: atan
+
+
+(define (make-polynomial var terms)
+  ((get 'make 'polynomial) var terms))
+;Value: make-polynomial
+
 
 
