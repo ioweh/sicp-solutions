@@ -47,4 +47,9 @@
        (lambda (x) (tag (sqrt (/ (numer x) (denom x))))))
   (put 'atan '(rational)
        (lambda (x) (tag (atan (/ (numer x) (denom x))))))
+  (put 'negate '(rational)
+       (lambda (r) (tag (make-rat (- (numer r)) (denom r)))))
   'done)
+
+(define (make-rational n d)
+  ((get 'make 'rational) n d))

@@ -48,3 +48,12 @@ search: polynomial as a product of factors
 
 https://en.wikipedia.org/wiki/Rational_root_theorem
 
+
+We can use a different environment if we've redefined some scheme procedure, like that:
+
+(eval '(sqrt x) (environment-parent user-initial-environment))
+
+See this link for a reference:
+
+https://groups.csail.mit.edu/mac/ftpdir/scheme-7.4/doc-html/scheme_14.html
+

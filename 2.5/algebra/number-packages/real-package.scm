@@ -20,4 +20,9 @@
        (lambda (x) (sqrt x)))
   (put 'atan '(real)
        (lambda (x) (atan x)))
+  (put 'negate '(real)
+       (lambda (x) (- x)))
   'done)
+
+(define (make-real-scheme-number n)
+  ((get 'make 'real-scheme-number) n))

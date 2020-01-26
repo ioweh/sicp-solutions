@@ -7,6 +7,7 @@
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\complex-package.scm")
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\polynomial-package.scm")
 
+
 (define (attach-tag type-tag contents)
   (cond ((equal? type-tag 'real) (cons type-tag contents))
 	((number? contents) contents)
@@ -41,6 +42,8 @@
 
 (define (equ? x y) (apply-generic 'equ? x y))
 
+
+
 (install-scheme-number-package)
 
 (install-rectangular-package)
@@ -54,9 +57,6 @@
 (install-complex-package)
 
 (install-polynomial-package)
-
-(define (make-scheme-real-number n)
-  ((get 'make 'real-scheme-number) n))
 
 
 (define *coercion-table* (make-equal-hash-table))
@@ -86,7 +86,7 @@
 (put 'raise '(scheme-number) integer->rational)
 
 (define (rational->real r)
-  (make-scheme-real-number (/ (car r) (cdr r))))
+  (make-real-scheme-number (/ (car r) (cdr r))))
 
 (put 'raise '(rational) rational->real)
 
@@ -134,7 +134,7 @@
 
 (define (project x) (apply-generic 'project x))
 
-(put 'project '(complex) (lambda (x) (make-scheme-real-number (real-part x))))
+(put 'project '(complex) (lambda (x) (make-real-scheme-number (real-part x))))
 
 (define (fractional? x)
   (not (= (floor x) x)))
@@ -167,7 +167,7 @@
 			(let* ((highest-type (get-highest-type type-tags))
 			      (raised-proc (get op (list highest-type highest-type))))
 			  (accumulate1 raised-proc (map contents (apply coerce-to-highest-type args)))))))
-	(if (or (eq? op 'drop) (eq? op 'project) (eq? op 'equ?) (eq? op 'raise))
+	(if (or (eq? op 'drop) (eq? op 'project) (eq? op 'equ?) (eq? op 'raise) (eq? op '=zero?))
 	    result
 	    (drop result))))))
 
@@ -183,14 +183,6 @@
 (define (angle z) (apply-generic 'angle z))
 ;Value: angle
 
-(define (make-complex-from-real-imag x y)
-  ((get 'make-from-real-imag 'rectangular) x y))
-;Value: make-from-real-imag
-
-(define (make-complex-from-mag-ang r a)
-  ((get 'make-from-mag-ang 'polar) r a))
-;Value: make-from-mag-ang
-
 
 (define (add x y) (apply-generic 'add x y))
 ;Value: add
@@ -204,33 +196,11 @@
 (define (div x y) (apply-generic 'div x y))
 ;Value: div
 
-
-
-(define (make-scheme-number n)
-  ((get 'make 'scheme-number) n))
-;Value: make-scheme-number
-
-
-(define (make-rational n d)
-  ((get 'make 'rational) n d))
-;Value: make-rational
-
-
-(define (make-real n)
-  ((get 'make 'real-scheme-number) n))
-
-
-(define (make-complex-from-real-imag x y)
-  ((get 'make-from-real-imag 'complex) x y))
-;Value: make-complex-from-real-imag
-
-(define (make-complex-from-mag-ang r a)
-  ((get 'make-from-mag-ang 'complex) r a))
-;Value: make-complex-from-mag-ang
-
-
 (define (equ? x y) (apply-generic 'equ? x y))
 ;Value: equ?
+
+(define (negate x) (apply-generic 'negate x))
+;Value: negate
 
 (define (=zero? x) (apply-generic '=zero? x))
 ;Value: =zero?
@@ -250,11 +220,4 @@
 
 (define (atan x) (apply-generic 'atan x))
 ;Value: atan
-
-
-(define (make-polynomial var terms)
-  ((get 'make 'polynomial) var terms))
-;Value: make-polynomial
-
-
 

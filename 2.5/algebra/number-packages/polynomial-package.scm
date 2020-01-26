@@ -16,7 +16,7 @@
 	   (let ((t1 (first-term L1)) (t2 (first-term L2)))
 	     (cond ((> (order t1) (order t2))
 		    (adjoin-term
-		     t2 (add-terms (rest-terms L1) L2)))
+		     t1 (add-terms (rest-terms L1) L2)))
 		   ((< (order t1) (order t2))
 		    (adjoin-term
 		     t2 (add-terms L1 (rest-terms L2))))
@@ -68,7 +68,7 @@
   (define (tag p) (attach-tag 'polynomial p))
   (define (=zero? p)
     (or (empty-termlist? p)
-        (fold (lambda (x y) (or y (= (coeff x) 0))) #f p)))
+        (fold (lambda (x y) (and y (=zero? (coeff x)))) #t (term-list p))))
   (put 'add '(polynomial polynomial)
        (lambda (p1 p2) (tag (add-poly p1 p2))))
   (put 'mul '(polynomial polynomial)
@@ -76,3 +76,7 @@
   (put 'make 'polynomial
        (lambda (var terms) (tag (make-poly var terms))))
   'done)
+
+(define (make-polynomial var terms)
+  ((get 'make 'polynomial) var terms))
+

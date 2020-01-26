@@ -44,3 +44,9 @@
   (put 'equ? '(complex complex) equ-complex?)
   (put '=zero? '(complex) =zero?)
   'done)
+
+(define (make-complex-from-real-imag x y)
+  ((get 'make-from-real-imag 'complex) x y))
+
+(define (make-complex-from-mag-ang r a)
+  ((get 'make-from-mag-ang 'complex) r a))
