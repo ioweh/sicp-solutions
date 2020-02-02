@@ -47,7 +47,6 @@
   (define (first-term term-list) (car term-list))
   (define (rest-terms term-list) (cdr term-list))
   (define (empty-termlist? term-list) (null? term-list))
-  (define (make-term order coeff) (list order coeff))
   (define (order term) (car term))
   (define (coeff term) (cadr term))
   (define (add-poly p1 p2)
@@ -66,8 +65,8 @@
 	       (list p1 p2))))
   ;; interface to rest of the system
   (define (tag p) (attach-tag 'polynomial p))
-  (define (=zero? p)
-    (or (empty-termlist? p)
+  (define (=zero-poly? p)
+    (or (empty-termlist? (term-list p))
         (fold (lambda (x y) (and y (=zero? (coeff x)))) #t (term-list p))))
   (put 'add '(polynomial polynomial)
        (lambda (p1 p2) (tag (add-poly p1 p2))))
@@ -75,6 +74,7 @@
        (lambda (p1 p2) (tag (mul-poly p1 p2))))
   (put 'make 'polynomial
        (lambda (var terms) (tag (make-poly var terms))))
+  (put '=zero? '(polynomial) =zero-poly?)
   'done)
 
 (define (make-polynomial var terms)

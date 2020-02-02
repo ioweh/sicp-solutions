@@ -1,0 +1,37 @@
+
+; There be tests for the Exercise 2.87
+
+
+(define p1 (make-polynomial 'x (list (make-term 1 5) (make-term 3 4))))
+;Value: p1
+
+(=zero? p1)
+;Value: #f
+
+(define p2 (make-polynomial 'x (list (make-term 0 2) (make-term 0 1))))
+;Value: p2
+
+p2
+;Value 28: (polynomial x (0 2) (0 1))
+
+(=zero? p2)
+;Value: #f
+
+(define p3 (make-polynomial 'x (list (list 2 0) (list 1 0))))
+;Value: p3
+
+(=zero? p3)
+;Value: #t
+
+
+(define p4 (make-polynomial 'x (list (make-term 2 (make-polynomial 'y '())))))
+;Value: p4
+
+p4
+;Value 32: (polynomial x (2 (polynomial y)))
+
+(=zero? p4)
+;Value: #t
+
+(=zero? (make-polynomial 'z '()))
+;Value: #t

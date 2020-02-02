@@ -221,3 +221,7 @@
 (define (atan x) (apply-generic 'atan x))
 ;Value: atan
 
+(define (make-term order coeff) (list order coeff))
+
+
+
