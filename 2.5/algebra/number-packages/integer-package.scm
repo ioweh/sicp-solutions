@@ -1,6 +1,8 @@
 (define (install-scheme-number-package)
   (define (tag x)
     (attach-tag 'scheme-number x))
+  (define (integer->rational n)
+    (make-rational n 1))
   (define square-compiled square)
   (define sqrt-compiled sqrt)
   (define atan-compiled atan)
@@ -26,6 +28,7 @@
        (lambda (x) (atan-compiled x)))
   (put 'negate '(scheme-number)
        (lambda (x) (- x)))
+  (put 'raise '(scheme-number) integer->rational)
   'done)
 
 (define (make-scheme-number n)

@@ -80,20 +80,6 @@
 
 (define (raise x) (apply-generic 'raise x))
 
-(define (integer->rational n)
-  (make-rational n 1))
-
-(put 'raise '(scheme-number) integer->rational)
-
-(define (rational->real r)
-  (make-real-scheme-number (/ (car r) (cdr r))))
-
-(put 'raise '(rational) rational->real)
-
-(define (real->complex x)
-  (make-complex-from-real-imag x 0))
-
-(put 'raise '(real) real->complex)
 
 (define (install-into-hierarchy installed-type lower-type hierarchy)
   (if (eq? (car hierarchy) lower-type)
@@ -134,8 +120,6 @@
 
 (define (project x) (apply-generic 'project x))
 
-(put 'project '(complex) (lambda (x) (make-real-scheme-number (real-part x))))
-
 (define (fractional? x)
   (not (= (floor x) x)))
 
@@ -146,16 +130,12 @@
 	(make-rational num denom)))
   (make-rational-from-real-iter x 1))
 
-(put 'project '(real) (lambda (x) (make-rational-from-real x)))
-
-(put 'project '(rational) (lambda (r) (round (/ (car r) (cdr r)))))
-
 (define (lowest-type? x)
   (eq? (type-tag x) 'scheme-number))
 
 (define (drop x)
   (let ((dropped (project x)))
-    (if (or (lowest-type? x) (not (equ? (raise dropped) x)))
+    (if (or (lowest-type? x) (equ? (raise dropped) x))
 	x
 	(drop dropped))))
 
@@ -167,7 +147,7 @@
 			(let* ((highest-type (get-highest-type type-tags))
 			      (raised-proc (get op (list highest-type highest-type))))
 			  (accumulate1 raised-proc (map contents (apply coerce-to-highest-type args)))))))
-	(if (or (eq? op 'drop) (eq? op 'project) (eq? op 'equ?) (eq? op 'raise) (eq? op '=zero?))
+	(if (or (eq? op 'drop) (eq? op 'project) (eq? op 'equ?) (eq? op 'raise) (eq? op '=zero?) (eq? op 'negate))
 	    result
 	    (drop result))))))
 

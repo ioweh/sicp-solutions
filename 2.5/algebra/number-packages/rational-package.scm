@@ -2,6 +2,8 @@
   ;; internal procedures
   (define (numer x) (car x))
   (define (denom x) (cdr x))
+  (define (rational->real r)
+    (make-real-scheme-number (/ (car r) (cdr r))))
   (define (make-rat n d)
     (let ((g (if (and (integer? n) (integer? d)) (gcd n d) 1)))
       (cons (/ n g) (/ d g))))
@@ -49,6 +51,8 @@
        (lambda (x) (tag (atan (/ (numer x) (denom x))))))
   (put 'negate '(rational)
        (lambda (r) (tag (make-rat (- (numer r)) (denom r)))))
+  (put 'project '(rational) (lambda (r) (round (/ (car r) (cdr r)))))
+  (put 'raise '(rational) rational->real)
   'done)
 
 (define (make-rational n d)

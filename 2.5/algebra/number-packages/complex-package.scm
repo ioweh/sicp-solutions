@@ -43,6 +43,7 @@
   (put 'angle '(complex) angle)
   (put 'equ? '(complex complex) equ-complex?)
   (put '=zero? '(complex) =zero?)
+  (put 'project '(complex) (lambda (x) (make-real-scheme-number (real-part x))))
   'done)
 
 (define (make-complex-from-real-imag x y)

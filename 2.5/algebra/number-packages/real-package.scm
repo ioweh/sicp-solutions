@@ -1,6 +1,8 @@
 (define (install-real-package)
   (define (tag x)
     (attach-tag 'real x))
+  (define (real->complex x)
+    (make-complex-from-real-imag x 0))
   (put 'add '(real real) +)
   (put 'sub '(real real) -)
   (put 'mul '(real real) *)
@@ -22,6 +24,8 @@
        (lambda (x) (atan x)))
   (put 'negate '(real)
        (lambda (x) (- x)))
+  (put 'project '(real) (lambda (x) (make-rational-from-real x)))
+  (put 'raise '(real) real->complex)
   'done)
 
 (define (make-real-scheme-number n)
