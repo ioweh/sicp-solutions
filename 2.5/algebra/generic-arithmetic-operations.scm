@@ -2,9 +2,11 @@
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\integer-package.scm")
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\real-package.scm")
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\rational-package.scm")
-(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\rectangular-package.scm")
-(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\polar-package.scm")
+(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\rectangular-complex-package.scm")
+(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\polar-complex-package.scm")
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\complex-package.scm")
+(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\sparse-polynomial-package.scm")
+(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\dense-polynomial-package.scm")
 (load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\polynomial-package.scm")
 
 
@@ -17,6 +19,7 @@
 (define (type-tag datum)
   (cond ((pair? datum) (car datum))
 	((number? datum) 'scheme-number)
+        ((list? datum) (map type-tag datum))
 	(true (error "Bad tagged datum -- TYPE-TAG" datum))))
 ;Value: type-tag
 
@@ -57,6 +60,10 @@
 (install-complex-package)
 
 (install-polynomial-package)
+
+(install-dense-polynomial-package)
+
+(install-sparse-polynomial-package)
 
 
 (define *coercion-table* (make-equal-hash-table))
@@ -200,6 +207,13 @@
 
 (define (atan x) (apply-generic 'atan x))
 ;Value: atan
+
+(define (adjoin-term t tl) ((get 'adjoin-term 'poly) t (contents tl)))
+
+(define (first-term p) (apply-generic 'first-term p))
+
+(define (make-poly v ts) (apply-generic 'make-poly v ts))
+
 
 (define (make-term order coeff) (list order coeff))
 

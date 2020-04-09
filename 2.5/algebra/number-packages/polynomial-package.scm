@@ -5,8 +5,6 @@
   (define (variable? x) (symbol? x))
   (define (same-variable? v1 v2)
     (and (variable? v1) (variable? v2) (eq? v1 v2)))
-  (define (make-poly variable term-list)
-    (cons variable term-list))
   (define (variable p) (car p))
   (define (term-list p) (cdr p))
   (define (add-terms L1 L2)
@@ -44,6 +42,10 @@
     (if (=zero? (coeff term))
         term-list
         (cons term term-list)))
+  (define (make-dense-polynomial var terms)
+    ((get 'make-poly 'dense) var terms))
+  (define (make-sparse-polynomial var terms)
+    ((get 'make-poly 'sparse) var terms))
   (define (the-empty-termlist) '())
   (define (first-term term-list) (car term-list))
   (define (rest-terms term-list) (cdr term-list))
@@ -82,8 +84,6 @@
        (lambda (p1 p2) (add (tag p1) (negate (tag p2)))))
   (put 'mul '(polynomial polynomial)
        (lambda (p1 p2) (tag (mul-poly p1 p2))))
-  (put 'make 'polynomial
-       (lambda (var terms) (tag (make-poly var terms))))
   (put '=zero? '(polynomial) =zero-poly?)
   (put 'negate '(polynomial)
        (lambda (p) (tag (make-poly (variable p) (map (lambda (term) (make-term (order term) (negate (coeff term)))) (term-list p))))))
@@ -93,8 +93,19 @@
        (lambda (p1 p2) (and (eq? (variable p1) (variable p2))
 	  		    (eq? (length (term-list p1)) (length (term-list p2)))
 			    (accumulate (lambda (x acc) (and acc (and (equ? (coeff (car x)) (coeff (cadr x))) (equ? (order (car x)) (order (cadr x)))))) #t (zip (term-list p1) (term-list p2))))))
+  (put 'make-dense-polynomial 'poly
+       (lambda (var terms) (tag (make-dense-polynomial var terms))))
+  (put 'make-sparse-polynomial 'poly
+       (lambda (var terms) (tag (make-sparse-polynomial var terms))))
+  (put 'adjoin-term 'poly
+       (lambda (var terms) (tag ((get 'adjoin-term (type-tag terms)) var (contents terms)))))
+  (put 'first-term '(poly)
+       (lambda (var terms) (tag (first-term var terms))))
   'done)
 
-(define (make-polynomial var terms)
-  ((get 'make 'polynomial) var terms))
 
+(define (make-dense-polynomial var terms)
+  ((get 'make-dense-polynomial 'poly) var terms))
+
+(define (make-sparse-polynomial var terms)
+  ((get 'make-sparse-polynomial 'poly) var terms))

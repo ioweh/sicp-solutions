@@ -23,6 +23,8 @@
   (define (=zero? z)
     (and (eq? (real-part z) 0)
 	 (eq? (imag-part z) 0)))
+  (define (negate-complex z)
+    (tag (make-from-real-imag (negate (real-part z)) (negate (imag-part z)))))
   ;; interface to rest of the system
   (define (tag z) (attach-tag 'complex z))
   (put 'add '(complex complex)
@@ -44,6 +46,7 @@
   (put 'equ? '(complex complex) equ-complex?)
   (put '=zero? '(complex) =zero?)
   (put 'project '(complex) (lambda (x) (make-real-scheme-number (real-part x))))
+  (put 'negate '(complex) negate-complex)
   'done)
 
 (define (make-complex-from-real-imag x y)
