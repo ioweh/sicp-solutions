@@ -1,0 +1,41 @@
+
+(load "C:\\Users\\User\\Desktop\\sicp-solutions\\2.5\\algebra\\generic-arithmetic-operations.scm")
+;Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\generic-arithmetic-operations.scm"... 
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\integer-package.scm"... done
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\real-package.scm"... done
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\rational-package.scm"... done
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\rectangular-complex-package.scm"... done
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\polar-complex-package.scm"... done
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\complex-package.scm"... done
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\sparse-polynomial-package.scm"... done
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\dense-polynomial-package.scm"... done
+;  Loading "\\users\\user\\desktop\\sicp-solutions\\2.5\\algebra\\number-packages\\polynomial-package.scm"... done
+;... done
+;Value: make-term
+
+
+(define sp (make-sparse-polynomial (make-term 2 3) '()))
+;Value: sp
+
+sp
+;Value 21: (polynomial sparse (2 3))
+
+(adjoin-term (make-term 4 9) sp)
+;Value 22: (polynomial sparse (4 9) (2 3))
+
+
+(define dp (make-dense-polynomial (make-term 2 3) '()))
+;Value: dp
+
+
+dp
+;Value 23: (polynomial dense 3 0 0)
+
+
+(adjoin-term (make-term 3 4) dp)
+;Value 24: (polynomial dense 4 3 0 0)
+
+
+(adjoin-term (make-term 5 4) dp)
+;Value 25: (polynomial dense 4 0 0 3 0 0)
+
