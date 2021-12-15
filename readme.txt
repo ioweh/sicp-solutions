@@ -25,4 +25,5 @@ Find file: C-x C-f
 https://courses.cs.washington.edu/courses/cse341/common/help/mit-scheme.html
 
 
+To run scheme on Linux, run the `scheme` command and then evaluate `(edit)` command in the intrepreter.
 
