@@ -27,3 +27,11 @@ https://courses.cs.washington.edu/courses/cse341/common/help/mit-scheme.html
 
 To run scheme on Linux, run the `scheme` command and then evaluate `(edit)` command in the intrepreter.
 
+Either way, just run the command `scheme -edwin -edit`.
+
+To increase the font size, edit the `~/.edwin` file and type the following lines there:
+
+((ref-command set-font) "9x15")
+((ref-command set-frame-size) 80 64)
+
+
