@@ -1,5 +1,7 @@
 This is my solutions to the sicp course.
 
+The book: https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book.html
+
 To load any file into the interpreter, run the following command:
 
 (load "differentiation.scm")
