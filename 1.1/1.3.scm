@@ -15,7 +15,13 @@
 
 
 
+; with only two comparisons
 
-
+(define (sum-of-2-largest-squares x y z)
+    (if (> x y)
+        (sum-of-squares x
+                        (if (> z y) z y))
+        (sum-of-squares y
+                        (if (> z x) z x))))
 
 
