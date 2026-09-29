@@ -30,26 +30,29 @@ http://community.schemewiki.org/?sicp-ex-1.7
 ;Loading "newton-raphson.scm"... done
 ;Value: sqrt
 
-(sqrt 2)
-;Value: 1.4142156862745097
+(define (sqrt-iter guess new-guess x)
+  (if (good-enough? guess new-guess)
+    new-guess
+    (sqrt-iter new-guess
+               (improve new-guess x)
+               x)))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (square x) (* x x))
+
+(define (good-enough? guess new-guess)
+  (< (/ (abs (- guess new-guess)) new-guess) 0.0000001))
 
 (define (sqrt x)
   (sqrt-iter 1.0 (improve 1.0 x) x))
-;Value: sqrt
 
-(define (sqrt-iter guess newguess x)
-  (if (good-enough? guess newguess x)
-      guess
-      (sqrt-iter newguess
-		 (improve newguess x)
-		 x)))
-;Value: sqrt-iter
-
-(define (good-enough? guess newguess x)
-  (< (/ (abs (- guess newguess)) guess) 0.001))
-
-(sqrt 2)
-;Value: 1.4142156862745097
+(square (sqrt 0.001))
+0.0009999999999999998
 
 
 If x is set close to 0.001 and lower, the difference between (square guess) and x can be significant in terms of these numbers. But this difference will be less than the predetermined tolerance still.
