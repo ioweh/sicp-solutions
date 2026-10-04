@@ -72,47 +72,55 @@
 
 
 (define (f n) (A 0 n))
+
 This is a pretty trivial example, as the first condition is met right off the bat, therefore the function evaluates to the following:
 
-(define (f n) (A 0 n)) => 2y
+(define (f n) (A 0 n)) => 2*n
 
 
 (define (g n) (A 1 n))
-We clearly see that in this case the expression expands n times, and the result of the last step is 2. Thus we need to multiply 2 n-1 times, or just bring 2 to the power of n, like this:
+
+(A 0 (A 1 (- n 1)))
+
+(A 0 (A 0 (A 0 .. n-1 times.. (A 1 1))))
+
+2 * 2 * 2  - n times
+
+We need to multiply 2 n-1 times, or just bring 2 to the power of n, like this:
 
 (define (g n) (A 1 n)) => 2^n 
 
 
 (define (h n) (A 2 n))
-This example is, well, not easy (ok, ok, it's easy, you just need to be careful to details). Let's just see how the function expands, and you'll see how beautiful this exercise is:
 
-(A 2 4)
-(A 1 (A 2 3))
-(A 1 (A 1 (A 2 2)))
-(A 1 (A 1 (A 1 (A 2 1))))
+(A 1 (A 2 (- n 1))...
 
-It expands n times before the last expression can be evaluated. Then we decrease n by one and evaluate the last expression to 2.
+(A 1 (A 1 (A 1 .. n-1 times .. (A 1 1))))
 
-(A 1 (A 1 (A 1 2)))
+2^2^2^2 - n times
 
 From the previous example we know that (A 1 n) evaluates to 2^n. In our case it's 2^2. After we evaluated this expression, we need to evaluate the next expression by bringing 2 to the power of 2^2. And we need to do so n-1 times. So, the answer is:
 
-(define (h n) (A 2 n)) => 2^2^2^...  n times
-2^2^2^2
-2^2^4
-2^16
+(define (h n) (A 2 n)) => 2^2^2 n times
 
-Some truly brilliant information can be found here:
+Some information can be found here:
+
 https://www.quora.com/What-is-the-use-of-Ackermanns-function
 
-heck
-Ackermann function is freaking beautiful
+Ackermann function is beautiful:
+
 2+2+2+...+2 (n times) = 2*n
+
 now let's get the operand produced by the first step, which is *
 and use it once again in the following way:
+
 2*2*2*...*2 (n times) = 2^n
-let's continue the game
-2^2^2^...^2 (n times) = 2$n (hah, just introduced a new operator here!)
-2$2$2$...$2 (n times) = 2#n (let's invent one more operator)
+
+let's continue
+
+2^2^2^...^2 (n times) = 2$n (inventing one more operator)
+2$2$2$...$2 (n times) = 2#n (let's invent yet one more operator)
+
 and get to the Knuth's up-arrow notation in no time:
 https://en.wikipedia.org/wiki/Knuth's_up-arrow_notation
+
