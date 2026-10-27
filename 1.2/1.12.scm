@@ -20,3 +20,10 @@
 (element-value 1 3)
 ;Value: 3
 
+(define (el row col)
+  (cond ((= col 1) 1)
+        ((= col row) 1)
+        ((> col row) #f)
+        (else (+ (el (- row 1) (- col 1))
+                 (el (- row 1) col)))))
+
