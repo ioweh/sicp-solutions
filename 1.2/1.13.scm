@@ -26,3 +26,49 @@ psi+1=(1 - (sqrt 5) + 2)/2 = (2 - 2(sqrt 5) + 4) / 4 = (1 - 2(sqrt 5) + 5)/4 = (
 => F(n+2)=(phi^(n+2) - psi^(n+2))/(phi-psi)
 
 We can also notice that psi^(n)/(sqrt 5) < 1/2. So this proves the statement completely.
+
+
+One more:
+
+Fib(n) = Fib(n-1) + Fib(n-2)
+
+
+Fib(n+2) = Fib(n+1) + Fib(n)
+
+
+phi^n*phi - psi^n*psi + phi^n - psi^n / sqrt 5
+
+phi^n(1/2 + sqrt 5/2 + 1) - psi^n(1/2 - sqrt 5/2 + 1) / sqrt 5
+
+1 + phi = phi^2
+1 + psi = psi^2
+
+
+phi^n(1 + phi) + psi^n(1 + psi)
+
+
+phi^2 = (1 + 2sqrt5 + 5)/4 = (6 + 2sqrt5)/4 = (3 + sqrt 5)/2
+
+1 + phi = (3 + sqrt 5) / 2
+
+
+psi^2 = (1 - 2sqrt5 + 5)/4 = (3 - sqrt5)/2
+
+1 + psi = (3 - sqrt5)/2
+
+
+Fib(n+2) = phi^(n+2) + psi^(n+2)
+
+
+Fib(n) is an integer.
+
+It's composed out of 2 parts:
+
+phi^n/sqrt5
+
+and
+
+psi^n/sqrt5, which is < 1/2
+
+Then yes, Fib(n) is the closest integer to phi^n/sqrt5
+
